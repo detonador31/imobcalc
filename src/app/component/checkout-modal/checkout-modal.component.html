@@ -1,0 +1,33 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="secondary">
+    <ion-title >{{ tittle }}</ion-title>    <ion-buttons size="large" slot="end">
+      <ion-button (click)="fecharModal()">Close</ion-button>
+    </ion-buttons>
+    <!-- Título -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="aplicaObs(blocoItem)">
+    <!-- <ion-input name="func_sexo" type="hidden"  [(ngModel)]="consulta.func_sexo"></ion-input> -->
+    <div class="dataFrame-modal">
+      <ion-row size="12">
+        <ion-label class="labelTop" size="12" >Descreva</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+          <ion-textarea class="textJustificativa" [(ngModel)]="blocoItem.obs_check" name="obs_check"></ion-textarea>
+        </ion-col>
+<!--    <ion-col size="1">
+          <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('obs_check')"></ion-icon>
+        </ion-col> -->
+      </ion-row>
+      <br />
+      <div class="ion-margin-vertical">
+        <ion-button type="submit" size="large" color="secondary" expand="block">Salvar</ion-button>
+      </div>   
+      
+    </div>      
+  </form>
+</ion-content>

@@ -1,0 +1,31 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="secondary">
+    <ion-title > Escolha o CID</ion-title>
+    <ion-buttons size="large" slot="end">
+      <ion-button (click)="fecharModal()">Close</ion-button>
+    </ion-buttons>
+    <!-- Título -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="input" (ionClear)="doSearchClear()" (ionChange)="doSearchBarChange($event, tipoInp)"></ion-searchbar>
+  <ion-row class="header-row">
+    <ion-col>
+      Numero
+    </ion-col>
+    <ion-col size="10">
+      Descrição
+    </ion-col>
+  </ion-row>
+  <ion-row class="data-row" *ngFor="let item of cids" (click)="aplicaCid(item.numero, item.descricao)">
+    <ion-col class="data-col-medium">
+      {{item.numero}}
+    </ion-col>    
+    <ion-col class="data-col-left" size="10">
+      {{item.descricao}}
+    </ion-col>
+  </ion-row>
+</ion-content>
+

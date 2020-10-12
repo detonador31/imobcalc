@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Opções OffLine</ion-title>
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="backPage()">
+        <ion-icon name="arrow-back-outline" size="large" ></ion-icon>&nbsp; Voltar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-img  class="img-banner" src='./assets/img/tcmed_logo.png' ></ion-img>  
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button class="button-menu" size="large" routerLink="/calendar" expand="block">
+    Atender
+  </ion-button>
+  <ion-button class="button-menu" size="large" routerLink="/list-consultas-enviar" expand="block">
+    Concluídos
+  </ion-button>
+</ion-content>

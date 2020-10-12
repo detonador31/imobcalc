@@ -1,0 +1,98 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="primary">
+    <ion-title >Seleção de Condomínios</ion-title>
+    <ion-buttons  slot="end">
+      <ion-button (click)="fecharModal()">CLOSE</ion-button>    
+    </ion-buttons> 
+    <!-- Título -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-row>
+          <ion-col>
+            Data de Agendamento
+          </ion-col>
+          <ion-col >
+            Número da Lista
+          </ion-col>
+          <ion-col >
+            Médico
+          </ion-col>
+        </ion-row>        
+      </ion-card-subtitle>
+      <ion-card-title>
+        <ion-row>
+          <ion-col>
+            {{ blocoTitle.dateAgendamento }}
+          </ion-col>
+          <ion-col >
+            {{ blocoTitle.numLista }}
+          </ion-col>
+          <ion-col >
+            {{ blocoTitle.dateAgendamento ? lastLogin.nome_usuario : '' }}
+          </ion-col>
+        </ion-row>             
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-row class="header-row">
+    <ion-col>
+      Seq
+    </ion-col>
+    <ion-col size="4">
+      Empresa
+    </ion-col>
+    <ion-col >
+      Código
+    </ion-col>
+    <ion-col>
+      HoraIni
+    </ion-col>
+    <ion-col>
+      HoraFim
+    </ion-col>
+    <ion-col>
+      Qtd. Func.
+    </ion-col>    
+    <ion-col>
+      Atend.
+    </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let item of blocoItens"
+   [routerLink]="['/list-funcionarios/list', item.empresaCodigo]" (click)="fecharModal()"
+   [ngClass]="item.atendidas > 0 ? 'data-row-emp-atendidos' : 'data-row'">
+    <ion-col class="data-col-medium">
+      {{item.sequencia + 1}}
+    </ion-col>    
+    <ion-col class="data-col-left" size="4">
+      {{item.empresaNome}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.empresaCodigo}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.hora_ini}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.hora_fim}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.qtd_fun_item}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.atendidas}}
+    </ion-col>
+  </ion-row>
+
+  <ion-footer>
+    <ion-toolbar>
+      <p>Total: {{ qtdReg - blocoSemEmp }}</p>
+    </ion-toolbar>
+  </ion-footer>  
+</ion-content>
+

@@ -1,0 +1,8 @@
+{
+  "name": "jsonproduto",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

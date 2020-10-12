@@ -1,0 +1,677 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <!-- Botão Voltar -->
+      <ion-button size="large" (click)="confirmaSaida()">
+        <ion-icon name="arrow-back-outline" size="large" ></ion-icon>&nbsp; Voltar
+      </ion-button>
+    </ion-buttons>  
+    <!-- Título carregado com variável em caso de criação ou edição no form -->
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="dataFrame">
+    <ion-row>
+      <ion-col class='colTopHeader'>
+          <h2>Ficha Clínica</h2>
+      </ion-col>
+    </ion-row>     
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Funcionário
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.func_nome }}
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Empresa
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.emp_nome }}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Médico
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ nomeMedico }}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Sexo
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.func_sexo }}
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Nascimento
+      </ion-col>    
+      <ion-col size="4" class='colContent'>
+        {{ consulta.func_dt_nascimento }}
+      </ion-col> 
+      <ion-col class='colHeader'>
+        Idade
+      </ion-col>    
+      <ion-col class='colContent'>
+        {{ funcIdade }}
+      </ion-col>       
+    </ion-row>
+  </div>
+
+  <div class="dataFrame">
+    <ion-row>
+      <ion-col class='colHeaderCenter'>
+        Data Consulta	
+      </ion-col>
+      <ion-col class='colHeaderCenter'>
+        Tipo Exame
+      </ion-col>    
+      <ion-col class='colHeaderCenter'>
+        Numero
+      </ion-col>    
+    </ion-row>   
+
+    <ion-row>
+      <ion-col class='colContentCenter'>
+        {{ consultaDate }}
+      </ion-col>
+      <ion-col class='colContentCenter'>
+        {{ consulta.consulta_tipo }}
+      </ion-col>    
+      <ion-col class='colContentCenter'>
+        {{ consulta.id }}
+      </ion-col>    
+    </ion-row>  
+  </div>
+
+  <div class="dataFrame">
+    <ion-row>
+      <ion-col class='colTopHeader'>
+        <h2>Ocupação Atual</h2>
+      </ion-col>
+    </ion-row>     
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Setor
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.func_setor }}
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Cargo
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.func_cargo }}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Descri. Cargo
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.func_cargo_desc }}
+      </ion-col>    
+    </ion-row>
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        Riscos	
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.func_cargo_risc }}
+      </ion-col>    
+    </ion-row>   
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        EPI	
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.func_cargo_epi }}
+      </ion-col>    
+    </ion-row>    
+    
+    <ion-row>
+      <ion-col size="3" class='colHeader'>
+        EPC	
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ consulta.func_cargo_epc }}
+      </ion-col>    
+    </ion-row>    
+  </div>
+
+    <div class="dataFrame" *ngIf="consultaAnteriorData.conclusao">
+      <ion-row>
+        <ion-col class='colTopHeader'>
+          <h2>Consulta Anterior</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3" class='colHeader'>
+          Realizado
+        </ion-col>
+        <ion-col class='colContentCenter'>
+          {{ consultaAnteriorData.dtConsulta }}
+        </ion-col>
+
+        <ion-col size="1" class='colContent'>
+        </ion-col>    
+        <ion-col size="3" class='colHeader'>
+          T. Consulta
+        </ion-col>
+        <ion-col class='colContentCenter'>
+          {{ consultaAnteriorData.tipoConsulta }}
+        </ion-col>       
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="3" class='colHeader'>
+          Conclusão
+        </ion-col>
+        <ion-col class='colContentCenter'>
+          {{ consultaAnteriorData.conclusao }}
+        </ion-col>    
+        <ion-col size="1" class='colContent'>
+        </ion-col>   
+        <ion-col size="3" class='colHeader'>
+          Diagnósticos
+        </ion-col>    
+        <ion-col class='colContentCenter'>
+          {{ consultaAnteriorData.diagnostico }}
+        </ion-col>
+      </ion-row>      
+        
+      <ion-row>
+        <ion-col size="3" class='colHeader'>
+          Empresa
+        </ion-col>
+        <ion-col class='colContent'>
+          {{ consultaAnteriorData.empresa }}
+        </ion-col>    
+      </ion-row> 
+      <ion-row>
+        <ion-col size="3" class='colHeader'>
+          Médico
+        </ion-col>
+        <ion-col class='colContent'>
+          {{ consultaAnteriorData.medico }}
+        </ion-col>    
+      </ion-row> 
+
+      <ion-row>
+        <ion-col size="3" class='colHeader'>
+          Alterado/Normal
+        </ion-col>
+        <ion-col class='colContent'>
+          Normal
+        </ion-col>    
+        <ion-col size="1" class='colContent'>
+        </ion-col>   
+      </ion-row>        
+    </div>
+
+  <form (ngSubmit)="save(consulta)">
+    <!-- <ion-input name="func_sexo" type="hidden"  [(ngModel)]="consulta.func_sexo"></ion-input> -->
+    <div class="dataFrame">
+      <ion-row size="12">
+        <ion-label class="labelTop" size="12" >Queixa Duração</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+          <ion-textarea class="textArea" [(ngModel)]="consulta.consulta_queixa" name="consulta_queixa"></ion-textarea>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('consulta_queixa')"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="dataFrame">
+      <ion-row size="12">
+        <h3>Interrogatório 1</h3>
+      </ion-row>
+
+      <ion-row class="rowRadio" *ngFor="let item of interrogatorio1">
+        <ion-col size="10">
+          <ion-row>
+            <ion-col>
+              <ion-label class="labelTop">{{item.label}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-textarea id="{{item.questObs}}" name="{{item.questObs}}" class="textAreaQuest" [(ngModel)]="consulta[item.questObs]" (ionChange)="checkObs($event, item.quest)"></ion-textarea>
+            </ion-col>
+         </ion-row>
+        </ion-col>
+        <ion-col size="2">
+            <ion-radio-group class="radioQuest" [(ngModel)]="consulta[item.quest]" name="{{ item.quest }}">
+              <ion-radio (click)="checkIntResposta($event, item.quest, item.obsPreenche)" value="sim"></ion-radio>
+              <ion-label>Sim</ion-label><br />
+              <ion-radio (click)="checkIntResposta($event, item.quest, '')" value="nao"></ion-radio>
+              <ion-label>Não </ion-label>
+            </ion-radio-group>
+        </ion-col> 
+      </ion-row>       
+    </div>
+
+
+    <div class="dataFrame">
+      <ion-row size="12">
+        <h3>Interrogatório 2</h3>
+      </ion-row>
+
+      <ion-row class="rowRadio" *ngFor="let item of interrogatorio2">
+        <ion-col size="10">
+          <ion-row>
+            <ion-col>
+              <ion-label class="labelTop">{{item.label}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-textarea id="{{item.questObs}}" name="{{ item.questObs }}" class="textAreaQuest" [(ngModel)]="consulta[item.questObs]" (ionChange)="checkObs($event, item.quest)" ></ion-textarea>
+            </ion-col>
+         </ion-row>  
+        </ion-col>
+        <ion-col size="2">
+            <ion-radio-group class="radioQuest" [(ngModel)]="consulta[item.quest]" name="{{ item.quest }}">
+              <ion-radio (click)="checkIntResposta($event, item.quest, item.obsPreenche)" value="sim"></ion-radio>
+              <ion-label>Sim </ion-label><br />
+              <ion-radio (click)="checkIntResposta($event, item.quest, '')" value="nao"></ion-radio>
+              <ion-label>Não </ion-label>
+            </ion-radio-group>
+        </ion-col> 
+      </ion-row>
+    </div>
+    
+    <div class="dataFrame">
+      <ion-row size="12">
+        <h3>Antecedentes</h3>
+      </ion-row>
+      <ion-row size="12">
+        <ion-label class="labelTop" size="12" >Antecedentes Ocupacionais</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+        <ion-textarea class="textArea" [(ngModel)]="consulta.consulta_ant_ocup" name='consulta_ant_ocup' ></ion-textarea>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('consulta_ant_ocup')"></ion-icon>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row size="12">
+        <ion-label class="labelTop" size="12" >Antecedentes Pessoais</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+          <ion-textarea class="textArea" [(ngModel)]="consulta.consulta_ant_pess" name='consulta_ant_pess' ></ion-textarea>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('consulta_ant_pess')"></ion-icon>
+        </ion-col> 
+      </ion-row>
+      <br />
+<!--       <ion-button class="button-menu" size="large" (click)="alteraSexo()" expand="block">
+        Alterar Sexo
+      </ion-button> -->
+      <br /> 
+    </div>
+    
+    <div class="dataFrame" *ngIf="consulta.func_sexo === 'FEMININO'">
+      <ion-row size="12">
+        <ion-label class="labelTop" size="12" >DUM(Data da Ultima Menstruação)</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+          <ion-datetime class="inputQuest" [(ngModel)]="consulta.consulta_ant_dt" name='consulta_ant_dt' displayFormat="DD/MM/YYYY" ></ion-datetime>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('consulta_ant_dt')"></ion-icon>
+        </ion-col>       
+      </ion-row>
+
+      <ion-row size="12">
+        <ion-label class="labelTop" size="12" >Antecedentes Ginecológicos</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+          <ion-textarea class="textArea" [(ngModel)]="consulta.consulta_ant_gine" name='consulta_ant_gine' ></ion-textarea>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('consulta_ant_gine')"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="dataFrame genic">
+      <ion-row size="12">
+        <h3>Doenças Familiares</h3>
+      </ion-row> 
+
+      <ion-row class="checkHorizon" *ngFor="let item of consultDoenca">
+        <ion-col>
+          <ion-row size="12">
+            <ion-col size="12">
+            </ion-col>          
+          </ion-row>
+          <ion-row size="12">
+            <ion-col size="6">
+              <ion-label>{{ item.label }}</ion-label>
+            </ion-col>
+            <ion-col size="3">
+              <ion-checkbox   [(ngModel)]="consulta[item.fieldMae]" name="{{ item.fieldMae }}" (ionChange)="unsetNenhuma(consulta[item.fieldMae] ? '1' : '')"></ion-checkbox>mãe
+            </ion-col>
+            <ion-col size="3">
+              <ion-checkbox   [(ngModel)]="consulta[item.fieldPai]" name="{{ item.fieldPai }}" (ionChange)="unsetNenhuma(consulta[item.fieldPai] ? '1' : '')"></ion-checkbox>pai
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="checkHorizon">
+        <ion-col>
+          <ion-row size="12">
+            <ion-col size="12">
+            </ion-col>          
+          </ion-row>
+          <ion-row size="12">
+            <ion-col size="6">
+              <ion-label>Nenhuma</ion-label>
+            </ion-col>
+            <ion-col size="4">
+              <ion-checkbox [(ngModel)]="consulta.consulta_doenca_8" name="consulta_doenca_8" (ionChange)="setNenhuma(consulta.consulta_doenca_8 ? 'ND' : '')"></ion-checkbox>Nenhuma
+            </ion-col>
+            <ion-col size="2">
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>  
+      
+      <ion-row> 
+        <ion-col>  
+          <ion-row size="12">
+            <ion-label class="labelTop" size="12">Outras: Descreva</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-col size="11">
+              <ion-textarea class="textArea" [(ngModel)]="consulta.consulta_doenca_out" (ionChange)="unsetNenhuma('')" name="consulta_doenca_out"></ion-textarea>
+            </ion-col>
+            <ion-col size="1">
+              <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('consulta_doenca_out')"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </div>  
+
+    <div class="dataFrame">
+      <ion-row size="12">
+        <h3>Medições</h3>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="5.5">
+          <ion-label class="labelTop">Peso</ion-label>
+        </ion-col>
+        <ion-col size="1">
+        </ion-col>        
+        <ion-col size="5.5">
+          <ion-label class="labelTop">Altura</ion-label>
+        </ion-col>
+        <ion-col size="5.5">
+          <ion-input name="consulta_peso"  class="inputQuest" type="tel"  
+            [(ngModel)]="consulta.consulta_peso" [brmasker]="{money: true, len: 5}" 
+            (ionChange)="validaCamposIMC(consulta.consulta_altu, consulta.consulta_peso)" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="1">
+        </ion-col>
+        <ion-col size="5.5">
+          <ion-input name="consulta_altu"  class="inputQuest" type="tel"
+            [(ngModel)]="consulta.consulta_altu" [brmasker]="{mask: '0,00', len: 4}"
+            (ionChange)="validaCamposIMC(consulta.consulta_altu, consulta.consulta_peso)" clearInput></ion-input>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop" size="12">IMC</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-input name="{{ imc }}"  class="inputQuestInativa" type="tel"  readonly [value]="imc" ></ion-input>
+        </ion-col>
+      </ion-row>      
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop" size="12">Classificação</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-input name="{{ imcClassificacao }}"  class="inputQuestInativa" readonly type="tel"  [value]="imcClassificacao" ></ion-input>
+        </ion-col>
+      </ion-row>     
+      
+      <ion-row class="borda"></ion-row>         
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop" size="12">Pressão</ion-label>
+        </ion-col>
+        <ion-col size="5.5">
+          <ion-input name="consulta_pre_max"  class="inputQuest" type="tel"  [(ngModel)]="consulta.consulta_pre_max" [brmasker]="{mask: '000', len: 3}" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="1">
+        </ion-col>
+        <ion-col size="5.5">
+          <ion-input name="consulta_pre_min"  class="inputQuest" type="tel"  [(ngModel)]="consulta.consulta_pre_min" [brmasker]="{mask: '000', len: 3}" clearInput></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let item of consultMedidas">
+        <ion-col size="12">
+          <ion-label class="labelTop" size="12">{{ item.label }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-input name="{{ item.field }}"  class="inputQuest" type="tel"  [(ngModel)]="consulta[item.field]" [brmasker]="item.brMask" clearInput></ion-input>
+        </ion-col>
+      </ion-row>
+      
+    </div>    
+    
+    <div class="dataFrame">
+      <ion-row size="12">
+        <h3>Exame Físico</h3>
+      </ion-row>
+      <ion-row *ngFor="let item of consultFisico">
+        <ion-col>  
+          <ion-row size="12">
+            <ion-label class="labelTop" size="12">{{ item.label }}</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-col size="11">
+              <ion-textarea class="textArea" [(ngModel)]="consulta[item.field]" name="{{ item.field }}" ></ion-textarea>
+            </ion-col>
+            <ion-col size="1">
+              <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields(item.field)"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </div>
+
+
+    <div class="dataFrame">
+      <ion-row size="12">
+        <h3>C.I.D. 10</h3>
+      </ion-row>
+      <ion-row size="12">
+        <ion-col size="2">
+          <ion-label class="labelTop" size="12">CID</ion-label>
+        </ion-col>
+        <ion-col size="10">
+          <ion-label class="labelTop" size="12">Descrição Cid</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let item of consultCid">
+        <ion-col size="2">
+          <ion-input [(ngModel)]="consulta[item.field]" name="{{ item.field }}"
+          (ionChange)="openCidModal(item.field, item.fieldDescri, $event, 'numero')" class="inputQuestCid" type="text"></ion-input>
+        </ion-col>
+        <ion-col size="9">
+          <ion-input [value]="cidDescri[item.fieldDescri]" class="inputQuestCid" type="text" 
+          (ionChange)="openCidModal(item.field, item.fieldDescri, $event, 'descri')"></ion-input>
+        </ion-col>
+        <ion-col size="1">
+            <ion-icon size="large" color='primary' name="close" (click)="clearCidFields(item.field, item.fieldDescri)"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <ion-row size="12">
+        <ion-col>
+          <ion-label class="labelTop" size="12">Observação C.I.D.</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+          <ion-textarea class="textArea" [(ngModel)]="consulta.consulta_cid_obs" name="consulta_cid_obs" ></ion-textarea>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('consulta_cid_obs')"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+    <div class="dataFrame">
+
+      <ion-row class="rowRadio">
+        <ion-col size="12">
+            <ion-row>
+              <ion-col>
+                <ion-label class="labelTop">Conclusão Médica</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="labelTop">Conclusão Ocupacional</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">
+                <ion-radio-group class="radioConclusao" [(ngModel)]="consulta.consulta_resul_med" name="consulta_resul_med" >
+                  <ion-radio value="1" ></ion-radio>
+                  <ion-label>Normal</ion-label><br />
+                  <ion-radio value="0" ></ion-radio>
+                  <ion-label>Alterado</ion-label>
+                </ion-radio-group>
+              </ion-col>
+
+              <ion-col size="6">
+                <ion-radio-group class="radioConclusao" [(ngModel)]="consulta.consulta_resul_ocu" name="consulta_resul_ocu">
+                  <ion-radio value="1" ></ion-radio>
+                  <ion-label>Ocupacional</ion-label><br />
+                  <ion-radio value="0" ></ion-radio>
+                  <ion-label>Não Ocupacional</ion-label>
+                </ion-radio-group>
+              </ion-col> 
+            </ion-row> 
+        </ion-col>
+      </ion-row> 
+
+      <ion-row class="rowRadio">
+        <ion-col>
+            <ion-row size="12">
+              <ion-col>
+                <ion-label class="labelTop">Resultado do Exame</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="labelTop"></ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row size="12">
+                <ion-col>
+                  <ion-radio-group class="radioConclusao" [(ngModel)]="consulta.consulta_resul_exa" name="consulta_resul_exa">
+                    <ion-row>
+                      <ion-col>
+                        <ion-radio value="1" ></ion-radio>
+                        <ion-label>Apto</ion-label><br />
+                        <ion-radio value="2" ></ion-radio>
+                        <ion-label>Inapto</ion-label><br />
+                      </ion-col>
+                      <ion-col>
+                        <ion-radio value="3" ></ion-radio>
+                        <ion-label>Apto com Restrição</ion-label><br />
+                        <ion-radio value="4" ></ion-radio>
+                        <ion-label>Aguardando Resposta</ion-label>
+                      </ion-col>
+                    </ion-row>
+                  </ion-radio-group>
+                </ion-col>
+            </ion-row> 
+        </ion-col>
+      </ion-row> 
+
+    </div>
+
+    <div class="dataFrame" *ngIf="consulta.consulta_resul_exa === '2'">
+
+      <ion-row class="rowRadio">
+        <ion-col>
+            <ion-row size="12">
+              <ion-col>
+                <ion-label class="labelTop">Conduta Medica</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="labelTop"></ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row size="12">
+                <ion-col>
+                  <ion-radio-group class="radioConclusao" [(ngModel)]="consulta.consulta_resul_enc" name="consulta_resul_enc">
+                        <ion-radio value="1" ></ion-radio>
+                        <ion-label>1 - Encaminho ao especialista (PS)</ion-label><br />
+                        <ion-radio value="2" ></ion-radio>
+                        <ion-label>2 - 1º vez que encaminhamento ao INSS.</ion-label><br />
+                        <ion-radio value="3" ></ion-radio>
+                        <ion-label>3 - Reencaminhamento ao INSS.</ion-label><br />
+                        <ion-radio value="4" ></ion-radio>
+                        <ion-label>4 - Orientação Verbal</ion-label>
+                  </ion-radio-group>
+                </ion-col>
+            </ion-row> 
+        </ion-col>
+      </ion-row>   
+    </div>
+    <div class="dataFrame">
+      <ion-row size="12">
+        <ion-label class="labelTop" size="12" >Aso Observação</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+          <ion-textarea class="textArea" [(ngModel)]="consulta.consulta_obs_aso" name='consulta_obs_aso' ></ion-textarea>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon size="large" color='primary' name="close" (click)="clearAnyFields('consulta_obs_aso')"></ion-icon>
+        </ion-col>
+      </ion-row>      
+      <div class="ion-margin-vertical">
+        <ion-button type="submit" size="large" color="secondary" expand="block">Salvar</ion-button>
+      </div>          
+      <br />
+      <br />
+      <br /> 
+    </div>
+  </form>
+
+
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>    
+    <ion-title>Tecnomed Mobile</ion-title>
+  </ion-toolbar>
+    <h1>&nbsp; Status de Conexão: {{ status }}</h1>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-img  class="img-banner" src='./assets/img/tcmed_logo.png' ></ion-img>
+<!--   <ion-button class="button-menu" size="large" [color]= "networkStatus && networkStatus.connected ? 'success' : 'danger'" 
+   expand="block" (click)="beforeRedirect()">
+    ON-LINE {{ networkStatus && networkStatus.connected ? '' : ' (Sem internet)' }}
+  </ion-button > 
+  <ion-button class="button-menu" size="large" routerLink="/options-offline" expand="block">
+    OFF-LINE
+  </ion-button> -->
+  <ion-button class="button-menu" size="medium" routerLink="/" expand="block">
+    Simular Financiamento Imobiliário
+  </ion-button>
+<!--   <ion-button class="button-menu" size="large" routerLink="/calendar" expand="block">
+    Calendário
+  </ion-button> -->
+  <ion-button class="button-menu" size="large" (click)="fechaApp()" expand="block">
+    Fechar APP
+  </ion-button >
+</ion-content>

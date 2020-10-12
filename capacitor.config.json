@@ -1,0 +1,28 @@
+{
+  "appId": "com.tcmed.tcmedapp",
+  "appName": "tcmed-app",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {
+    "preferences": {
+      "ScrollEnabled": "false",
+      "android-minSdkVersion": "19",
+      "BackupWebStorage": "none",
+      "SplashMaintainAspectRatio": "true",
+      "FadeSplashScreenDuration": "500",
+      "SplashShowOnlyFirstTime": "false",
+      "SplashScreen": "screen",
+      "SplashScreenDelay": "5000"
+    }
+  },
+  "server": {
+    "url": "http://192.168.15.19:8100",
+    "originalUrl": "http://192.168.1.114:8100"
+  }
+}

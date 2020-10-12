@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>Login {{ambienteDev}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="backPage()">
+        <ion-icon name="arrow-back-outline" size="large" ></ion-icon>
+      </ion-button>
+    </ion-buttons>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (submit)="onSubmit(usuario)" autocomplete="off">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" name="email" type="text" [(ngModel)]="usuario.email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input formControlName="password" name="password" type="password" [(ngModel)]="usuario.password" required></ion-input>
+    </ion-item>
+    <ion-button class="ion-margin-top" size="large" type="submit" expand="block" [disabled]="form.invalid" shape="round">
+      Logar
+    </ion-button>
+  </form>
+</ion-content>

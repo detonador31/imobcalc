@@ -1,0 +1,126 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="primary">
+    <ion-title >Seleção de Condomínios</ion-title>
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="backPage()">
+        <ion-icon name="arrow-back-outline" size="large" ></ion-icon>&nbsp; Voltar
+      </ion-button>
+    </ion-buttons>
+    <!-- Título -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-row>
+          <ion-col>
+            Data de Agendamento
+          </ion-col>
+          <ion-col style="text-align: center;">
+            Número da Lista
+          </ion-col>
+          <ion-col >
+            Médico
+          </ion-col>
+        </ion-row>        
+      </ion-card-subtitle>
+      <ion-card-title>
+        <ion-row>
+          <ion-col>
+            {{ blocoTitle.dateAgendamento }}
+          </ion-col>
+          <ion-col style="text-align: center;">
+            {{ blocoTitle.numLista }}
+          </ion-col>
+          <ion-col >
+            {{ lastLogin.nome_usuario }}
+          </ion-col>
+        </ion-row>             
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-row class="header-row">
+    <ion-col size="1">
+      Seq
+    </ion-col>
+    <ion-col size="4">
+      Empresa
+    </ion-col>
+    <ion-col size="1">
+      Cód.
+    </ion-col>
+    <ion-col size="1">
+      HoraIni
+    </ion-col>
+    <ion-col size="1">
+      HoraFim
+    </ion-col>
+    <ion-col size="1">
+      Qtd. Func.
+    </ion-col>
+    <ion-col size="1">
+      Atend.
+    </ion-col>    
+    <ion-col size="1">
+      Check-In
+    </ion-col>
+    <ion-col size="1">
+      Check-Out
+    </ion-col>
+  </ion-row>
+  <ion-row class="data-row" *ngFor="let item of blocoItens"
+  [ngClass]= "{'data-row':item.atendidas === 0 && !item.check_out,
+  'data-row-emp-atendidos':item.atendidas > 0,'data-row-emp-finalizado':item.check_out}"
+  >
+    <ion-col class="data-col-medium">
+      {{item.sequencia + 1}}
+    </ion-col>    
+    <ion-col class="data-col-left" size="4" *ngIf="!item.check_in">
+      {{item.empresaNome}}
+    </ion-col>
+    <ion-col class="data-col-left" size="4" *ngIf="item.check_in">
+      {{item.empresaNome}}&nbsp;&nbsp;&nbsp;
+      <ion-icon (click)="checkIn(item, true)" size="large"  name="list"></ion-icon>
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.empresaCodigo}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.hora_ini}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.hora_fim}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.qtd_fun_item}}
+    </ion-col>
+    <ion-col class="data-col-medium">
+      {{item.atendidas}}
+    </ion-col>
+
+    <ion-col class="data-col-medium" *ngIf="!item.check_in">
+      <ion-icon size="large"  name="log-in" (click)="checkIn(item, false)"></ion-icon>
+    </ion-col>    
+    <ion-col class="data-col-medium" *ngIf="item.check_in">
+      {{item.check_in}}
+    </ion-col>
+
+    <ion-col class="data-col-medium" *ngIf="!item.check_out">
+      <ion-icon (click)="checkOut(item)" size="large"  name="log-out"></ion-icon>
+    </ion-col>
+    <ion-col class="data-col-medium" *ngIf="item.check_out">
+      {{item.check_out}}
+      <ion-icon *ngIf="item.obs_check" (click)="checkOut(item)" size="medium"  name="create"></ion-icon>
+    </ion-col>
+
+  </ion-row>
+
+  <ion-footer>
+    <ion-toolbar>
+      <p>Total: {{ qtdReg - blocoSemEmp }}</p>
+    </ion-toolbar>
+  </ion-footer>  
+</ion-content>

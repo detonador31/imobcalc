@@ -1,0 +1,62 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="secondary">
+    <ion-title >Consultas a Enviar</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button size="large"></ion-back-button>
+    </ion-buttons> 
+    <!-- Título -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar Funcionário" size="large" debounce="1000" (ionClear)="doSearchClear()" (ionChange)="searchConsulta($event)"></ion-searchbar>
+  <ion-row class="header-row">
+    <ion-col >
+      Cód.
+    </ion-col>
+    <ion-col >
+      Data
+    </ion-col>
+    <ion-col size="4">
+      Emp.
+    </ion-col>
+    <ion-col size="4">
+      Func.
+    </ion-col>
+    <ion-col>
+      Resul.
+    </ion-col>
+  </ion-row>
+  <ion-row class="data-row" *ngFor="let item of consultas" [routerLink]="['/form-consulta/edit', item.id]">
+    <ion-col size="1" class="data-col-medium">
+      {{item.id}}
+    </ion-col>    
+    <ion-col size="2" class="data-col-medium">
+      {{item.consulta_data | date:'dd/MM/yyyy'}}
+    </ion-col>
+    <ion-col size="4" class="data-col-left">
+      {{item.emp_nome}}
+    </ion-col>
+    <ion-col size="3" class="data-col-left">
+      {{item.func_nome}}
+    </ion-col>
+    <ion-col size="2" class="data-col-medium">
+      {{item.consulta_resul_exa}}
+    </ion-col>
+  </ion-row>
+
+  <ion-footer>
+    <ion-toolbar>
+      <p>Total: {{ contaConsultas }}</p>
+      <br>
+      <ion-row>
+        <ion-button color="success" class="button-menu" size="medium" [routerLink]="['/list-consultas-enviadas']" expand="block">
+          <ion-icon size="large"  name="list">
+          </ion-icon> &nbsp;&nbsp; Mostrar Enviadas
+        </ion-button>        
+      </ion-row>
+    </ion-toolbar>
+  </ion-footer>  
+</ion-content>
+

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="success">   
+    <ion-title>Opções de Sincronização</ion-title>
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="backPage()">
+        <ion-icon name="arrow-back-outline" size="large" ></ion-icon>
+      </ion-button>
+    </ion-buttons>    
+  </ion-toolbar>
+  <h1><ion-title>Bem vindo <b>{{ nomeUsuario }}</b></ion-title></h1>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-img  class="img-banner" src='./assets/img/tcmed_logo.png' ></ion-img>  
+  <ion-button class="button-menu" size="large" (click)="atualizaAgenda()" expand="block">
+    Baixar Agenda
+  </ion-button>
+  <ion-button class="button-menu" size="large" (click)="atualizaHistorico()" expand="block">
+    Baixar Histórico
+  </ion-button>
+  <ion-button class="button-menu" size="large" (click)="enviaConsultas()" expand="block">
+    Enviar
+  </ion-button >
+</ion-content>

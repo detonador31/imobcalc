@@ -1,0 +1,80 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="warning">
+    <ion-title >Lista de Funcionários</ion-title>
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="backPage()">
+        <ion-icon name="arrow-back-outline" size="large" ></ion-icon>&nbsp; Voltar
+      </ion-button>
+    </ion-buttons>
+    <!-- Título -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-row>
+          <ion-col>
+            Condomínio
+          </ion-col>
+          <ion-col style="text-align: center;">
+            Qtd. Funcionários
+          </ion-col>
+          <ion-col >
+            Médico
+          </ion-col>
+        </ion-row>        
+      </ion-card-subtitle>
+      <ion-card-title>
+        <ion-row>
+          <ion-col>
+            {{ empresa.razao_social }}
+          </ion-col>
+          <ion-col style="text-align: center;">
+            {{ qtdReg }}
+          </ion-col>
+          <ion-col >
+            {{ lastLogin.nome_usuario }}
+          </ion-col>
+        </ion-row>             
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-searchbar placeholder="Filtrar Funcionário" size="large" debounce="1000" (ionClear)="doSearchClear()" (ionChange)="searchFunc($event)"></ion-searchbar>
+  <ion-row class="header-row">
+    <ion-col size="5">
+      Nome
+    </ion-col>
+    <ion-col size="2">
+      Ult.Exame
+    </ion-col>
+    <ion-col size="3">
+      CPF
+    </ion-col>
+    <ion-col size="2">
+      Ação
+    </ion-col>
+  </ion-row>
+  <ion-row  *ngFor="let item of funcionarios"  [ngClass]="item.consultaId ? item.class : 'data-row'" >
+    <ion-col size="5" class="data-col-left">
+      {{item.nome_funcionario}} {{item.consultaId ? item.descri : '' }}
+    </ion-col>
+    <ion-col size="2" class="data-col-medium">
+      {{item.ultimo_exame}}
+    </ion-col>
+    <ion-col size="3" class="data-col-medium">
+      {{item.cpf}}
+    </ion-col>
+    <ion-col *ngIf="!item.consultaId" size="2" class="data-col-medium" [routerLink]="['/form-consulta/new', item.id]">
+      <ion-icon size="large"  name="documents-outline"></ion-icon>
+    </ion-col>
+    <ion-col *ngIf="item.consultaId && item.consultaStatus === 'nao_enviada'" size="2" class="data-col-medium" [routerLink]="['/form-consulta/edit', item.consultaId]">
+      <ion-icon size="large"  name="pencil-outline"></ion-icon>
+    </ion-col>
+    <ion-col *ngIf="item.consultaId && item.consultaStatus === 'enviada'" size="2" class="data-col-medium" (click)="sendedMessage()">
+      <ion-icon size="large"  name="checkbox-outline"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-content>
