@@ -1,4 +1,3 @@
-import { HTTP } from '@ionic-native/http/ngx';
 import { DatabaseService } from './services/entity/database.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -17,9 +16,14 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Taxas para Imoveis por Banco',
-      url: 'produto',
-      icon: 'list'
+      title: 'Home',
+      url: '',
+      icon: 'home'
+    },
+    {
+      title: 'Taxas por Banco',
+      url: 'banco-taxas',
+      icon: 'bar-chart'
     },
   ];
 
@@ -28,7 +32,6 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private dbProvider: DatabaseService,
-    private http: HTTP
   ) {
     this.initializeApp();
   }

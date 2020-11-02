@@ -1,0 +1,283 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>    
+    <ion-title>Financiamento Imobiliário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="calcular(finanImovel)">
+
+    <div class="dataFrame">
+
+      <ion-row size="12">
+        <h3><b>Tabela SAC</b><br />Preencha os campos necessários</h3>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">Banco (*)</ion-label>
+        </ion-col>
+        <ion-col class="finanSelect">
+            <ion-select name="banco_id" placeholder="Escolha o Banco" [(ngModel)]="finanImovel.banco_id" 
+              interface="action-sheet" (ionChange)="aplicaBanco($event)">
+              <ion-select-option *ngFor="let item of bancoTaxas" [value]="item.id">{{ item.banco }}</ion-select-option>
+            </ion-select>
+        </ion-col>
+      </ion-row>      
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">Valor Imóvel (*)</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-input name="total_imovel_val"  class="inputQuest" type="tel"  (ionBlur)="atualizaItbi(finanImovel.itbi_escritura_choice)"
+            [(ngModel)]="finanImovel.total_imovel_val" [brmasker]="{money: true}" clearInput></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">Entrada (*)</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-input name="entrada_val"  class="inputQuest" type="tel"
+            [(ngModel)]="finanImovel.entrada_val" [brmasker]="{money: true}" 
+            clearInput></ion-input>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">Incluir ITBI + Escritura? (*)</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-radio-group class="radioConclusao" [(ngModel)]="finanImovel.itbi_escritura_choice" name="itbi_escritura_choice">
+            <ion-row>
+              <ion-col>
+                <ion-radio (click)="atualizaItbi('1')" value="1" ></ion-radio>
+                <ion-label>Sim</ion-label>
+                <ion-radio (click)="atualizaItbi('0')" value="0" ></ion-radio>
+                <ion-label>Não</ion-label><br />
+              </ion-col>
+            </ion-row>
+          </ion-radio-group>
+        </ion-col>
+      </ion-row>   
+      
+      <ion-row *ngIf="finanImovel.itbi_escritura_choice === '1'">
+        <ion-col size="12">
+          <ion-label class="labelTop" size="12">Valor ITBI e Escritura</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-input name="finanImovel.itbi_escritura_val"  readonly class="inputQuestInativa" type="tel"  [(ngModel)]="finanImovel.itbi_escritura_val" ></ion-input>
+        </ion-col>
+      </ion-row>           
+      
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">Incluir Avaliação de Garantia? (*)</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-radio-group class="radioConclusao" [(ngModel)]="finanImovel.avaliacao_garantia_choice"
+          [brmasker]="{money: true}" name="avaliacao_garantia_choice">
+            <ion-row>
+              <ion-col>
+                <ion-radio value="1" ></ion-radio>
+                <ion-label>Sim</ion-label>
+                <ion-radio value="0" ></ion-radio>
+                <ion-label>Não</ion-label><br />
+              </ion-col>
+            </ion-row>
+          </ion-radio-group>
+        </ion-col>
+      </ion-row>        
+
+      <ion-row *ngIf="finanImovel.avaliacao_garantia_choice === '1'">
+        <ion-col size="12">
+          <ion-label class="labelTop" size="12">Avaliação de Garantia (Se em branco será inserido valor estimado)</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-input name="avaliacao_garantia_val" readonly class="inputQuestInativa" type="tel"  [(ngModel)]="finanImovel.avaliacao_garantia_val" ></ion-input>
+        </ion-col>
+      </ion-row>     
+      
+      <ion-row class="borda"></ion-row>         
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop" size="12">Parcelas (*) (Meses ou Anos)</ion-label>
+        </ion-col>
+        <ion-col size="5.5">
+          <ion-label class="labelTop">Meses</ion-label>
+        </ion-col>
+        <ion-col size="1">
+        </ion-col>        
+        <ion-col size="5.5">
+          <ion-label class="labelTop">Anos</ion-label>
+        </ion-col>        
+        <ion-col size="5.5">
+          <ion-input name="qtd_parcelas_meses"  class="inputQuest" type="tel" (ionChange)="mesesOuAnos('meses')"
+            [(ngModel)]="finanImovel.qtd_parcelas_meses" [brmasker]="{mask: '000', len: 3}" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="1">
+        </ion-col>
+        <ion-col size="5.5">
+          <ion-input name="qtd_parcelas_anos"  class="inputQuest" type="tel"  (ionChange)="mesesOuAnos('anos')"
+          [(ngModel)]="finanImovel.qtd_parcelas_anos" [brmasker]="{mask: '000', len: 3}" clearInput></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">Juros Anuais (*)</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-input name="percent_juros_anual"  class="inputQuestInativa" type="tel"
+            [(ngModel)]="finanImovel.percent_juros_anual" readonly [brmasker]="{money: true, len: 6 }" clearInput></ion-input>
+        </ion-col>
+      </ion-row>         
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">Salário Mensal (*)</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-input name="salario"  class="inputQuest" type="tel" [(ngModel)]="finanImovel.salario"
+           [brmasker]="{money: true}" clearInput></ion-input>
+        </ion-col>
+      </ion-row>  
+
+      <ion-row class="borda"></ion-row>       
+      
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop" size="12">Seguros e Tarifas Mensais</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3">
+          <ion-label class="labelTop">Nome</ion-label>
+        </ion-col>
+  
+        <ion-col size="3">
+          <ion-label class="labelTop">Valor</ion-label>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-label class="labelTop">ou %</ion-label>
+        </ion-col>                
+      
+        <ion-col  size="3">
+          <ion-label class="labelTop">Par. 0?</ion-label>
+        </ion-col>        
+      </ion-row>        
+
+      <ion-row>
+        <ion-col size="3">
+          <ion-input name="taxa1_mensal"  class="inputQuest inputTaxas" type="tel" 
+            [(ngModel)]="finanImovel.taxa1_mensal" type="text" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa1_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa1_mensal', 'val')"
+          [(ngModel)]="finanImovel.taxa1_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa1_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa1_mensal', '')"
+          [(ngModel)]="finanImovel.taxa1_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
+        </ion-col>                   
+        <ion-col class="finanCheck" size="3">
+          <ion-checkbox  [(ngModel)]="finanImovel.taxa1_mensal_check" name="taxa1_mensal_check" ></ion-checkbox>
+        </ion-col>              
+      </ion-row>
+       
+      <ion-row>    
+        <ion-col size="3">
+          <ion-input name="taxa2_mensal"  class="inputQuest inputTaxas" type="tel" [(ngModel)]="finanImovel.taxa2_mensal"
+	        type="text" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa2_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa2_mensal', 'val')"
+          [(ngModel)]="finanImovel.taxa2_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa2_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa2_mensal', '')"
+          [(ngModel)]="finanImovel.taxa2_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
+        </ion-col>                        
+        <ion-col class="finanCheck" size="3">
+          <ion-checkbox  [(ngModel)]="finanImovel.taxa2_mensal_check" name="taxa2_mensal_check" ></ion-checkbox>
+        </ion-col>        
+      </ion-row>
+      
+      <ion-row>      
+        <ion-col size="3">
+          <ion-input name="taxa3_mensal"  class="inputQuest inputTaxas" type="tel" [(ngModel)]="finanImovel.taxa3_mensal"
+	        type="text" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa3_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa3_mensal', 'val')"
+          [(ngModel)]="finanImovel.taxa3_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa3_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa3_mensal', '')"
+          [(ngModel)]="finanImovel.taxa3_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
+        </ion-col>                       
+        <ion-col class="finanCheck" size="3">
+          <ion-checkbox  [(ngModel)]="finanImovel.taxa3_mensal_check" name="taxa3_mensal_check" ></ion-checkbox>
+        </ion-col>        
+      </ion-row>  
+      
+      <ion-row>     
+        <ion-col size="3">
+          <ion-input name="taxa4_mensal"  class="inputQuest inputTaxas" type="tel" [(ngModel)]="finanImovel.taxa4_mensal"
+	        type="text" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa4_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa4_mensal', 'val')"
+          [(ngModel)]="finanImovel.taxa4_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa4_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa4_mensal', '')"
+          [(ngModel)]="finanImovel.taxa4_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
+        </ion-col>                        
+        <ion-col class="finanCheck" size="3">
+          <ion-checkbox  [(ngModel)]="finanImovel.taxa4_mensal_check" name="taxa4_mensal_check" ></ion-checkbox>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>      
+        <ion-col size="3">
+          <ion-input name="taxa5_mensal"  class="inputQuest inputTaxas" type="tel" [(ngModel)]="finanImovel.taxa5_mensal"
+	        type="text" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa5_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa5_mensal', 'val')"
+          [(ngModel)]="finanImovel.taxa5_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input name="taxa5_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa5_mensal', '')"
+          [(ngModel)]="finanImovel.taxa5_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
+        </ion-col>        
+        <ion-col class="finanCheck" size="3">
+          <ion-checkbox [(ngModel)]="finanImovel.taxa5_mensal_check" name="taxa5_mensal_check" ></ion-checkbox>
+        </ion-col>      
+      </ion-row>
+
+      <br />
+      <div class="ion-margin-vertical">
+        <ion-button type="submit" size="large" color="secondary" expand="block">Calcular</ion-button>
+      </div>          
+      <br />
+      <br />
+      <br />       
+      
+    </div>    
+    
+
+
+  </form>  
+
+</ion-content>

@@ -14,7 +14,8 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 // HttpClientModule necessário para funcionar conexão com API rest
 import { HttpClientModule } from '@angular/common/http';
-import { HTTP } from '@ionic-native/http/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { File } from '@ionic-native/File/ngx';
 
 // Dependências para o SQlite
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
@@ -22,7 +23,14 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 
 // Serviço para mascaras para inputs diversas
 import { BrMaskerModule } from 'br-mask';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CurrencyPipe } from '@angular/common';
+
+// Tudo isso pra usar valor monetário em reais!
+import { LOCALE_ID } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import {registerLocaleData} from '@angular/common';
+registerLocaleData(localePt, 'pt');
+
 
 @NgModule({
   declarations: [AppComponent
@@ -34,18 +42,20 @@ import { DatePipe } from '@angular/common';
     AppRoutingModule,
     // Conexão com API rest
     HttpClientModule
-
   ],
   providers: [
     CookieService,
-    HTTP,
     SQLite,
     SQLitePorter,
     BrMaskerModule,
     StatusBar,
     SplashScreen,
+    File,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    FileOpener,
     DatePipe,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    CurrencyPipe,
+    {provide: LOCALE_ID, useValue: 'pt'},
   ],
   bootstrap: [AppComponent]
 })

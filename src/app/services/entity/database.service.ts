@@ -42,14 +42,47 @@ export class DatabaseService {
 
   // Comando para remover tabela
 /*   sqls.push('DROP TABLE last_login;'); */
+/*   sqls.push('DROP TABLE banco_taxas;'); */
 
 /*     sqls.push('DROP TABLE bloco;');
     sqls.push('DROP TABLE bloco_item;');
     sqls.push('DROP TABLE empresa;');
-    sqls.push('DROP TABLE funcionario;'); */
+    sqls.push('DROP TABLE funcionario;');
 
-/*     sqls.push('DROP TABLE consulta_anterior;');
+    sqls.push('DROP TABLE consulta_anterior;');
     sqls.push('DROP TABLE consulta_enviar;'); */
+
+    // Tabela de banco_taxas
+    sqls.push('CREATE TABLE IF NOT EXISTS banco_taxas (' +
+      'id integer primary key AUTOINCREMENT NOT NULL,' +
+      'banco VARCHAR (30),' +
+      'tipo_finam VARCHAR (30), ' +
+      'avaliacao_garantia integer, ' +
+      'juros_anuais, ' +
+      'taxa1_mensal VARCHAR (10), ' +
+      'taxa2_mensal VARCHAR (10), ' +
+      'taxa3_mensal VARCHAR (10), ' +
+      'taxa4_mensal VARCHAR (10), ' +
+      'taxa5_mensal VARCHAR (10), ' +
+      'taxa1_mensal_val integer, ' +
+      'taxa2_mensal_val integer, ' +
+      'taxa3_mensal_val integer, ' +
+      'taxa4_mensal_val integer, ' +
+      'taxa5_mensal_val integer, ' +
+
+      'taxa1_mensal_porcent integer, ' +
+      'taxa2_mensal_porcent integer, ' +
+      'taxa3_mensal_porcent integer, ' +
+      'taxa4_mensal_porcent integer, ' +
+      'taxa5_mensal_porcent integer, ' +
+
+      'taxa1_mensal_check VARCHAR (1), ' +
+      'taxa2_mensal_check VARCHAR (1), ' +
+      'taxa3_mensal_check VARCHAR (1), ' +
+      'taxa4_mensal_check VARCHAR (1), ' +
+      'taxa5_mensal_check VARCHAR (1), ' +
+      'created_at Date, ' +
+      'updated_at Date);');
 
     // Tabela de bloco
     sqls.push('CREATE TABLE IF NOT EXISTS bloco (' +

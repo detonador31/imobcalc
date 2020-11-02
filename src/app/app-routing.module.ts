@@ -64,6 +64,22 @@ const routes: Routes = [
     loadChildren: () => import('./pages/list-consultas-enviadas/list-consultas-enviadas.module').
     then( m => m.ListConsultasEnviadasPageModule)
   },
+  {
+    path: 'finan-imovel',
+    loadChildren: () => import('./pages/finan-imovel/finan-imovel.module').then( m => m.FinanImovelPageModule)
+  },
+  {
+    path: 'finan-imovel-calc',
+    loadChildren: () => import('./pages/finan-imovel-calc/finan-imovel-calc.module').then( m => m.FinanImovelCalcPageModule)
+  },
+  {
+    path: 'imovel-pdf',
+    loadChildren: () => import('./pages/imovel-pdf/imovel-pdf.module').then( m => m.ImovelPdfPageModule)
+  },
+  {
+    path: 'banco-taxas',
+    loadChildren: () => import('./pages/banco-taxas/banco-taxas.module').then( m => m.BancoTaxasPageModule)
+  }
 ];
 
 @NgModule({

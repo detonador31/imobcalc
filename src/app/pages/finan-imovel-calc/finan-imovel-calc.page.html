@@ -1,0 +1,229 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <!-- Botão Voltar -->
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="backPage()">
+        <ion-icon  name="arrow-back-outline" size="large" ></ion-icon>&nbsp; Voltar
+      </ion-button>
+    </ion-buttons>      
+    <ion-title>Tabela SAC</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button size=large></ion-menu-button>
+    </ion-buttons>    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="dataFrame">
+    <ion-row>
+      <ion-col class='colTopHeader'>
+          <h2>Dados Preenchidos</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Salário Mensal
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.salario | currency:'BRL': 'R$' }}
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Salário vs Máx. Parcela
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.salario_parcela_val | currency:'BRL': 'R$'}}
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Valor Imóvel
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.total_imovel_val | currency:'BRL': 'R$'}}
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Entrada
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.entrada_val | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        ITBI + Escritura
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.itbi_escritura_val | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Avaliação de Garantia
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.avaliacao_garantia_val | currency:'BRL': 'R$'}}
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Parcelas
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.qtd_parcelas_meses + ' x'}}
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Juros Anuais
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.percent_juros_anual | percent: '1.2-2'}}
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Juros Mensais
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.percent_juros_mensal | percent: '1.2-3'}}
+      </ion-col>      
+    </ion-row>
+    <ion-row *ngIf="finan.taxa1_mensal">
+      <ion-col size="6"  class='colHeader'>
+        {{ finan.taxa1_mensal}}
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.taxa1_mensal_val ? (finan.taxa1_mensal_val | currency:'BRL': 'R$') :
+         (finan.taxa1_mensal_porcent | percent: '1.2-3')}}
+      </ion-col>      
+    </ion-row>
+    <ion-row *ngIf="finan.taxa2_mensal">
+      <ion-col size="6"  class='colHeader'>
+        {{ finan.taxa2_mensal}}
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.taxa2_mensal_val ? (finan.taxa2_mensal_val | currency:'BRL': 'R$') :
+        (finan.taxa2_mensal_porcent | percent: '1.2-3')}}
+      </ion-col>      
+    </ion-row>
+    <ion-row *ngIf="finan.taxa3_mensal">
+      <ion-col size="6"  class='colHeader'>
+        {{ finan.taxa3_mensal}}
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.taxa3_mensal_val ? (finan.taxa3_mensal_val | currency:'BRL': 'R$') :
+        (finan.taxa3_mensal_porcent | percent: '1.2-3')}}
+      </ion-col>      
+    </ion-row>
+    <ion-row *ngIf="finan.taxa4_mensal">
+      <ion-col size="6"  class='colHeader'>
+        {{ finan.taxa4_mensal}}
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.taxa4_mensal_val ? (finan.taxa4_mensal_val | currency:'BRL': 'R$') :
+         (finan.taxa4_mensal_porcent | percent: '1.2-3')}}
+      </ion-col>      
+    </ion-row>
+    <ion-row *ngIf="finan.taxa5_mensal">
+      <ion-col size="6"  class='colHeader'>
+        {{ finan.taxa5_mensal}}
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.taxa5_mensal_val ? (finan.taxa5_mensal_val | currency:'BRL': 'R$') :
+        (finan.taxa5_mensal_porcent | percent: '1.2-3')}}
+      </ion-col>      
+    </ion-row>
+
+  </div>
+
+  <div class="dataFrame">
+    <ion-row>
+      <ion-col class='colTopHeader'>
+        <h2>Calculos</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Total Despesas
+      </ion-col>
+      <ion-col class='colContent'>
+        {{finan.total_somas | currency:'BRL': 'R$'}}
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Saldo Devedor
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.saldo_devedor_val | currency:'BRL': 'R$'}}
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Primeira Parcela
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.primeira_parcela | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Ultima Parcela
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.ultima_parcela | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Amortização Mensal
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.amortizacao_mensal_val | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Total Juros
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.total_juros_somados_val | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Total Taxas
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.total_taxas_somados_val | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Total Perda!
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.total_perdas_somados_val | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row> 
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Prestações Somadas
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.total_imovel_parcelado_val | currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row>  
+      <div class="ion-margin-vertical">
+        <ion-button (click)="exibirParcelas(finan)" size="medium" color="success" expand="block">Exibir Parcelas</ion-button>
+      </div>          
+      <div class="ion-margin-vertical">
+        <ion-button (click)="gerarPdf(finan, parcelas)" size="medium" color="success" expand="block">Gerar PDF Detalhado</ion-button>
+      </div>          
+      <br />
+  </div>
+</ion-content>

@@ -112,6 +112,7 @@ export class HelperService {
   dateTime() {
     const dateString = new Date().toLocaleTimeString('en-US', {timeZone: 'America/Sao_Paulo'});
     const date: Date = new Date();
+    console.log(date);
     // tslint:disable-next-line: radix
     date.setHours(parseInt(dateString.substring(0 , 2)));
     // tslint:disable-next-line: radix
@@ -219,7 +220,7 @@ export class HelperService {
     return resul;
   }
 
-  /**
+/**
    * Converte uma string moeda ou valor decimal em número flutuante
    * author Silvio Watakabe <silvio@tcmed.com.br>
    * @since 23-07-2020
@@ -238,6 +239,70 @@ export class HelperService {
     valor = parseFloat(valor);
     valor = parseFloat(valor) || 0.0;
     return valor;
+  }
+
+  /**
+   * Converte numero em string monetário para edição
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 23-07-2020
+   * @version 1.0
+   * @param valor any
+   * @return resul number
+   */
+  numberToCurrency(valor: any) {
+    // Troca todas os . por ,
+    valor = valor.toString();
+    valor =  valor.indexOf('.') > 1 ? valor.replace('.', ',') : valor + ',00';
+    const array = valor.split(',', 2);
+    if (array.length === 2) {
+      valor = array[1].length < 2 ? valor + '0' : valor;
+    }
+
+    return valor;
+  }
+
+  /**
+   * Converte decimal(String) em valor de porcentagem(numero) para o Sqlite
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 28-10-2020
+   * @version 1.0
+   * @param valor any aceita string como R$00,00 ou 00,00
+   * @return resul number
+   */
+  convertDecimalPorcentagem(valor: any) {
+    // Remove todos os .
+    valor = valor.replace(/\./g, '');
+    // Remove R$
+    valor = valor.replace('R$', '');
+    // Troca todas as , por .
+    valor = valor.replace(',', '.');
+    // Converte para float
+    valor = parseFloat(valor) / 100;
+    return valor;
+  }
+
+  /**
+   * Converte numero Porcentagem em string decimal para edição
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 28-10-2020
+   * @version 1.0
+   * @param valor any aceita string como R$00,00 ou 00,00
+   * @return resul string
+   */
+  convertPorcentagemDecimal(valor: any, decimais) {
+    valor = valor * 100;
+    valor = (parseFloat(valor).toFixed(decimais));    
+    // Troca todas as , por .
+    valor = valor.toString().replace('.', ',');
+    
+    return valor;
+  }
+
+  arredondarPraCima(val: number, casas: number) {
+    const casasDecimais = Math.pow(10, casas);
+    var arrendondar = Math.round(val * casasDecimais);
+    var resul = Math.ceil(arrendondar)/casasDecimais;
+    return resul;
   }
 
   /**

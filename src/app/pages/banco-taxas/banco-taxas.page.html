@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <!-- Botão Voltar -->
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="backPage()">
+        <ion-icon  name="arrow-back-outline" size="large" ></ion-icon>&nbsp; Voltar
+      </ion-button>
+    </ion-buttons>      
+    <ion-title>Definições Bancarias</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button size=large></ion-menu-button>
+    </ion-buttons>    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row  class="data-row"></ion-row> 
+
+  <ion-row class="header-row">
+    <ion-col size="4">
+      Banco
+    </ion-col>
+    <ion-col size="3">
+      Finan. Tipo
+    </ion-col>
+    <ion-col size="3">
+      Juros Anuais
+    </ion-col>
+<!--     <ion-col size="3">
+      Data
+    </ion-col> -->
+    <ion-col size="2">
+      Ação
+    </ion-col>
+  </ion-row>
+
+  <ion-row  *ngFor="let item of bancoTaxas"  class="data-row">
+    <ion-col size="4" class="data-col-medium">
+      {{ item.banco }}
+    </ion-col>
+    <ion-col size="3" class="data-col-medium">
+      {{ item.tipo_finam }}
+    </ion-col>
+    <ion-col size="3" class="data-col-medium">
+      {{ item.juros_anuais | percent: '1.2-3'}}
+    </ion-col>
+<!--     <ion-col size="3" class="data-col-medium">
+      {{ !item.updated_at ? (item.created_at | date : 'dd/MM/yyyy' ) : (item.updated_at | date : 'dd/MM/yyyy') }}
+    </ion-col> -->
+    <ion-col size="2" class="data-col-medium">
+      <ion-icon size="medium"  name="pencil-outline" (click)="openFormModal(item)"></ion-icon>
+      &nbsp;&nbsp;    
+      <ion-icon size="medium"  name="trash-outline" (click)="delete(item)"></ion-icon>
+    </ion-col>
+  </ion-row> 
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <!-- Carrega o botão para criar novo registro -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" (click)="openFormModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>  
+</ion-content>
