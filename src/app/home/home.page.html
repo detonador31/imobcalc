@@ -10,22 +10,9 @@
 
 <ion-content class="ion-padding">
   <ion-img  class="img-banner" src='./assets/img/tcmed_logo.png' ></ion-img>
-<!--   <ion-button class="button-menu" size="large" [color]= "networkStatus && networkStatus.connected ? 'success' : 'danger'" 
-   expand="block" (click)="beforeRedirect()">
-    ON-LINE {{ networkStatus && networkStatus.connected ? '' : ' (Sem internet)' }}
-  </ion-button > 
-  <ion-button class="button-menu" size="large" routerLink="/options-offline" expand="block">
-    OFF-LINE
-  </ion-button> -->
   <ion-button class="button-menu" size="medium" routerLink="/finan-imovel" expand="block">
     Financiamento Imobiliário
   </ion-button>
-  <ion-button class="button-menu" size="medium" routerLink="/imovel-pdf" expand="block">
-    Teste de Scroll
-  </ion-button>
-<!--   <ion-button class="button-menu" size="large" routerLink="/calendar" expand="block">
-    Calendário
-  </ion-button> -->
   <ion-button class="button-menu" size="medium" (click)="fechaApp()" expand="block">
     Fechar APP
   </ion-button >

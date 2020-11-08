@@ -5,6 +5,7 @@ import { BancoTaxas } from 'src/app/classes/banco_taxas';
 import { HelperService } from 'src/app/services/outros/helper.service';
 import { isString, isUndefined } from 'util';
 import { BancoTaxasFormComponent } from 'src/app/component/banco-taxas-form/banco-taxas-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-banco-taxas',
@@ -20,7 +21,8 @@ export class BancoTaxasPage implements OnInit {
     private helper: HelperService,    
     private navCtr: NavController,
     private entBancoTaxas: EntBancoTaxasService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private router: Router
   ) { 
   }
 
@@ -31,16 +33,6 @@ export class BancoTaxasPage implements OnInit {
   async getAllBancoTaxas() {
     this.bancoTaxas = await this.entBancoTaxas.getAll();
   }
-
-  /**
-   * Volta para a página anterior
-   * author Silvio Watakabe <silvio@tcmed.com.br>
-   * @since 19-08-2020
-   * @version 1.0
-   */
-  backPage() {
-    this.navCtr.back();
-  }  
 
   async salvar(bancoTaxa: BancoTaxas) {
     await this.entBancoTaxas.save(bancoTaxa);
@@ -85,6 +77,15 @@ export class BancoTaxasPage implements OnInit {
     }
   }  
 
-
+/**
+   * Volta para a página anterior
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 19-08-2020
+   * @version 1.0
+   */
+  backPage() {
+    //this.navCtr.back();
+    this.router.navigate(['']);
+  }
 
 }

@@ -73,10 +73,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/finan-imovel-calc/finan-imovel-calc.module').then( m => m.FinanImovelCalcPageModule)
   },
   {
-    path: 'imovel-pdf',
-    loadChildren: () => import('./pages/imovel-pdf/imovel-pdf.module').then( m => m.ImovelPdfPageModule)
-  },
-  {
     path: 'banco-taxas',
     loadChildren: () => import('./pages/banco-taxas/banco-taxas.module').then( m => m.BancoTaxasPageModule)
   }

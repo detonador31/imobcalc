@@ -178,91 +178,91 @@
 
       <ion-row>
         <ion-col size="3">
-          <ion-input name="taxa1_mensal"  class="inputQuest inputTaxas" type="tel" 
+          <ion-input name="taxa1_mensal"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" 
             [(ngModel)]="finanImovel.taxa1_mensal" type="text" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa1_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa1_mensal', 'val')"
+          <ion-input name="taxa1_mensal_val"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa1_mensal', 'val')"
           [(ngModel)]="finanImovel.taxa1_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa1_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa1_mensal', '')"
+          <ion-input name="taxa1_mensal_porcent"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa1_mensal', '')"
           [(ngModel)]="finanImovel.taxa1_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
         </ion-col>                   
         <ion-col class="finanCheck" size="3">
-          <ion-checkbox  [(ngModel)]="finanImovel.taxa1_mensal_check" name="taxa1_mensal_check" ></ion-checkbox>
+          <ion-checkbox  [(ngModel)]="finanImovel.taxa1_mensal_check" name="taxa1_mensal_check" disabled> </ion-checkbox>
         </ion-col>              
       </ion-row>
        
       <ion-row>    
         <ion-col size="3">
-          <ion-input name="taxa2_mensal"  class="inputQuest inputTaxas" type="tel" [(ngModel)]="finanImovel.taxa2_mensal"
+          <ion-input name="taxa2_mensal"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" [(ngModel)]="finanImovel.taxa2_mensal"
 	        type="text" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa2_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa2_mensal', 'val')"
+          <ion-input name="taxa2_mensal_val"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa2_mensal', 'val')"
           [(ngModel)]="finanImovel.taxa2_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa2_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa2_mensal', '')"
+          <ion-input name="taxa2_mensal_porcent"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa2_mensal', '')"
           [(ngModel)]="finanImovel.taxa2_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
         </ion-col>                        
         <ion-col class="finanCheck" size="3">
-          <ion-checkbox  [(ngModel)]="finanImovel.taxa2_mensal_check" name="taxa2_mensal_check" ></ion-checkbox>
+          <ion-checkbox  [(ngModel)]="finanImovel.taxa2_mensal_check" name="taxa2_mensal_check" disabled> </ion-checkbox>
         </ion-col>        
       </ion-row>
       
       <ion-row>      
         <ion-col size="3">
-          <ion-input name="taxa3_mensal"  class="inputQuest inputTaxas" type="tel" [(ngModel)]="finanImovel.taxa3_mensal"
+          <ion-input name="taxa3_mensal"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" [(ngModel)]="finanImovel.taxa3_mensal"
 	        type="text" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa3_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa3_mensal', 'val')"
+          <ion-input name="taxa3_mensal_val"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa3_mensal', 'val')"
           [(ngModel)]="finanImovel.taxa3_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa3_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa3_mensal', '')"
+          <ion-input name="taxa3_mensal_porcent"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa3_mensal', '')"
           [(ngModel)]="finanImovel.taxa3_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
         </ion-col>                       
         <ion-col class="finanCheck" size="3">
-          <ion-checkbox  [(ngModel)]="finanImovel.taxa3_mensal_check" name="taxa3_mensal_check" ></ion-checkbox>
+          <ion-checkbox  [(ngModel)]="finanImovel.taxa3_mensal_check" name="taxa3_mensal_check" disabled> </ion-checkbox>
         </ion-col>        
       </ion-row>  
       
       <ion-row>     
         <ion-col size="3">
-          <ion-input name="taxa4_mensal"  class="inputQuest inputTaxas" type="tel" [(ngModel)]="finanImovel.taxa4_mensal"
+          <ion-input name="taxa4_mensal"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" [(ngModel)]="finanImovel.taxa4_mensal"
 	        type="text" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa4_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa4_mensal', 'val')"
+          <ion-input name="taxa4_mensal_val"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa4_mensal', 'val')"
           [(ngModel)]="finanImovel.taxa4_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa4_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa4_mensal', '')"
+          <ion-input name="taxa4_mensal_porcent"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa4_mensal', '')"
           [(ngModel)]="finanImovel.taxa4_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
         </ion-col>                        
         <ion-col class="finanCheck" size="3">
-          <ion-checkbox  [(ngModel)]="finanImovel.taxa4_mensal_check" name="taxa4_mensal_check" ></ion-checkbox>
+          <ion-checkbox  [(ngModel)]="finanImovel.taxa4_mensal_check" name="taxa4_mensal_check" disabled> </ion-checkbox>
         </ion-col>
       </ion-row>
 
       <ion-row>      
         <ion-col size="3">
-          <ion-input name="taxa5_mensal"  class="inputQuest inputTaxas" type="tel" [(ngModel)]="finanImovel.taxa5_mensal"
+          <ion-input name="taxa5_mensal"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" [(ngModel)]="finanImovel.taxa5_mensal"
 	        type="text" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa5_mensal_val"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa5_mensal', 'val')"
+          <ion-input name="taxa5_mensal_val"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa5_mensal', 'val')"
           [(ngModel)]="finanImovel.taxa5_mensal_val" [brmasker]="{money: true}" clearInput></ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-input name="taxa5_mensal_porcent"  class="inputQuest inputTaxas" type="tel" (ionBlur)="taxaValOuPorcent('taxa5_mensal', '')"
+          <ion-input name="taxa5_mensal_porcent"  readonly class="inputQuestInativa input_taxas_inativas" type="tel" (ionBlur)="taxaValOuPorcent('taxa5_mensal', '')"
           [(ngModel)]="finanImovel.taxa5_mensal_porcent" [brmasker]="{money: true , decimal: 3}" clearInput></ion-input>
         </ion-col>        
         <ion-col class="finanCheck" size="3">
-          <ion-checkbox [(ngModel)]="finanImovel.taxa5_mensal_check" name="taxa5_mensal_check" ></ion-checkbox>
+          <ion-checkbox [(ngModel)]="finanImovel.taxa5_mensal_check" name="taxa5_mensal_check" disabled> </ion-checkbox>
         </ion-col>      
       </ion-row>
 

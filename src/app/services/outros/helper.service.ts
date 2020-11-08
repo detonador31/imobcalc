@@ -252,7 +252,7 @@ export class HelperService {
   numberToCurrency(valor: any) {
     // Troca todas os . por ,
     valor = valor.toString();
-    valor =  valor.indexOf('.') > 1 ? valor.replace('.', ',') : valor + ',00';
+    valor =  valor.indexOf('.') > 0 ? valor.replace('.', ',') : valor + ',00';
     const array = valor.split(',', 2);
     if (array.length === 2) {
       valor = array[1].length < 2 ? valor + '0' : valor;

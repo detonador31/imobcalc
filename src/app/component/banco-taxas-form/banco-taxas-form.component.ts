@@ -34,11 +34,17 @@ export class BancoTaxasFormComponent implements OnInit {
     await this.parcelaTaxa.taxasMensaisFinam(this.bancoTaxa, null, 'banco');    
   }
 
+  /**
+   * Salva as definições bancárias, antes disso valida e trata os dados
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 31-10-2020
+   * @version 1.0
+   * @param bancoTaxa BancoTaxas
+   */   
   async salvar(bancoTaxa: BancoTaxas) {
     const valida: any = await this.validarDados(bancoTaxa);
     if (valida) {
       bancoTaxa =  await this.trataData(bancoTaxa);
-      console.log(bancoTaxa);
       await this.entBancoTaxas.save(bancoTaxa);
       await this.helper.toast('Sucesso!', 'Taxa bancária salva com sucesso', 'success', 'middle', 3000);
       const array = {
@@ -72,6 +78,39 @@ export class BancoTaxasFormComponent implements OnInit {
       await this.helper.toast('Preenchimento!', 'Mesmo zero, preencha avaliação de garantia', 'danger', 'middle', 3000);
       return false
     }
+
+    const val = await this.validarTaxas(bTaxa);
+
+    return val;
+  }
+
+  /**
+   * Valida Taxas separadamente
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 31-10-2020
+   * @version 1.0
+   * @param bTaxa BancoTaxas
+   */   
+  async validarTaxas (bTaxa: BancoTaxas) {
+    for (var i = 1; i < 6; i++) {
+      const fieldLabel   = 'taxa' + i + '_mensal';
+      const fieldVal     = 'taxa' + i + '_mensal_val';
+      const fieldPorcent = 'taxa' + i + '_mensal_porcent';
+      const fieldcheck = 'taxa' + i + '_mensal_check';
+
+      let valTaxa = (bTaxa[fieldLabel] && !bTaxa[fieldVal] && !bTaxa[fieldPorcent]) ? false :
+      (!bTaxa[fieldLabel] && (bTaxa[fieldVal] || bTaxa[fieldPorcent])) ? false : true;
+
+      if (!valTaxa) {
+        await this.helper.toast('Preenchimento!', 'Taxa' + i +' não preenchida corretamente, ' +
+        'defina o nome + valor ou %', 'danger', 'middle', 3000);
+        bTaxa[fieldLabel] = null;
+        bTaxa[fieldVal] = null;
+        bTaxa[fieldPorcent] = null;
+        bTaxa[fieldcheck] = null;
+        return false;
+      }
+    }
     return true;
   }
 
@@ -85,7 +124,7 @@ export class BancoTaxasFormComponent implements OnInit {
   async trataData(banco: BancoTaxas) {
     banco.avaliacao_garantia = !banco.avaliacao_garantia ? '0,00' : banco.avaliacao_garantia;
     banco.avaliacao_garantia = this.helper.formataFloat(banco.avaliacao_garantia);
-    banco.juros_anuais = this.helper.convertDecimalPorcentagem(banco.juros_anuais);
+    banco.juros_anuais = banco.juros_anuais ? this.helper.convertDecimalPorcentagem(banco.juros_anuais) : 0;
     banco = await this.parcelaTaxa.taxasStringToNumber(null, banco, 'banco');
 
     return banco;

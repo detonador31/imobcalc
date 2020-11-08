@@ -275,6 +275,11 @@ export class ParcelasTaxasService {
           this.helper.numberToCurrency(bancoTaxa[fieldVal]) : bancoTaxa[fieldVal];
           finan[fieldPorcent]   = bancoTaxa[fieldPorcent] && bancoTaxa[fieldPorcent] !== undefined ?
           this.helper.convertPorcentagemDecimal(bancoTaxa[fieldPorcent], 3) : bancoTaxa[fieldPorcent];
+        } else {
+          finan[fieldLabel]     = null;
+          finan[fieldCheck]     = null;
+          finan[fieldVal]       = null;
+          finan[fieldPorcent]   = null;  
         }
       }
       return finan;

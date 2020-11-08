@@ -209,6 +209,12 @@ padding-bottom: 15px;
     width: 97%;
     background-color: #ebebeb;
 }
+
+.input_taxas_inativas {
+    font-size: small;
+    background-color: #ebebeb;    
+}
+
 ion-radio-group {
     margin: auto;    
 }
@@ -345,9 +351,13 @@ ion-radio-group {
     margin-left: 12px;
     margin-right: 12px;
     vertical-align: middle;
-    color: #2674ce;
     width: 40px;
     height: 40px;
+}
+
+.finanCheck ion-checkbox{
+    --border-color: #2674ce;
+    --border-width: 1px;
 }
 
 .finanSelect ion-select {
