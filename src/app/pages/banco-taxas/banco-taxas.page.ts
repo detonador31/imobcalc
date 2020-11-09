@@ -26,11 +26,14 @@ export class BancoTaxasPage implements OnInit {
   ) { 
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter(){
     this.getAllBancoTaxas();
-  }
+  } 
 
   async getAllBancoTaxas() {
+    console.log('tentou Executar!');
     this.bancoTaxas = await this.entBancoTaxas.getAll();
   }
 
