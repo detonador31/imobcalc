@@ -16,6 +16,7 @@ export class BancoTaxasPage implements OnInit {
 
   bancoTaxa: BancoTaxas = new BancoTaxas();
   bancoTaxas: BancoTaxas[] = [];
+  taxas: any[] = [];
 
   constructor(
     private helper: HelperService,    
@@ -33,7 +34,6 @@ export class BancoTaxasPage implements OnInit {
   } 
 
   async getAllBancoTaxas() {
-    console.log('tentou Executar!');
     this.bancoTaxas = await this.entBancoTaxas.getAll();
   }
 
@@ -71,7 +71,7 @@ export class BancoTaxasPage implements OnInit {
       componentProps: {
         data: banco
       },
-      cssClass: 'finan-detalhe-modal-css'
+      cssClass: 'banco-taxas-modal-css'
     });
     await modal.present();
     const data = await modal.onWillDismiss();

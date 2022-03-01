@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { EntAbstract } from './ent-abstract';
-import { DatePipe } from '@angular/common';
-import { HelperService } from '../outros/helper.service';
-import { DatabaseService } from './database.service';
 
 
 @Injectable({
@@ -21,7 +18,8 @@ export class EntEntity extends EntAbstract{
   // tslint:disable-next-line: no-inferrable-types
  
 
-  constructor() {
+  constructor(
+  ) {
     super();
   }
 

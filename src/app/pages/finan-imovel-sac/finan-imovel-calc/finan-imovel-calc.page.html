@@ -30,7 +30,7 @@
     </ion-row>    
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Salário vs Máx. Parcela
+        Parcela Máx. com base no Salário
       </ion-col>
       <ion-col class='colContent'>
         {{finan.salario_parcela_val | currency:'BRL': 'R$'}}
@@ -73,7 +73,7 @@
         Parcelas
       </ion-col>
       <ion-col class='colContent'>
-        {{finan.qtd_parcelas_meses + ' x'}}
+        {{finan.qtd_parcelas_meses + 'X'}}
       </ion-col>      
     </ion-row>
     <ion-row>
@@ -148,7 +148,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Total Despesas
+        Total Imovel
       </ion-col>
       <ion-col class='colContent'>
         {{finan.total_somas | currency:'BRL': 'R$'}}
@@ -188,7 +188,7 @@
     </ion-row> 
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Total Juros
+        Juros no periodo
       </ion-col>
       <ion-col class='colContent'>
         {{ finan.total_juros_somados_val | currency:'BRL': 'R$'}}
@@ -204,7 +204,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Total Perda!
+        Total Juros + Taxas
       </ion-col>
       <ion-col class='colContent'>
         {{ finan.total_perdas_somados_val | currency:'BRL': 'R$'}}
@@ -218,12 +218,29 @@
         {{ finan.total_imovel_parcelado_val | currency:'BRL': 'R$'}}
       </ion-col>    
     </ion-row>  
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        TOTAL PREVISTO
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ (finan.itbi_escritura_val ) <= 0 ? (finan.total_imovel_val * 0.05) +
+          finan.total_imovel_parcelado_val + finan.entrada_val :
+          finan.total_imovel_parcelado_val + finan.entrada_val| currency:'BRL': 'R$'}}
+      </ion-col>    
+    </ion-row> 
+
       <div class="ion-margin-vertical">
-        <ion-button (click)="exibirParcelas(finan)" size="medium" color="success" expand="block">Exibir Parcelas</ion-button>
+        <ion-button (click)="exibirParcelas(finan)" size="medium" color="success" expand="block">
+          <ion-icon name="eye-outline" slot="start"></ion-icon>Exibir Parcelas</ion-button>
       </div>          
       <div class="ion-margin-vertical">
-        <ion-button (click)="gerarPdf(finan, parcelas)" size="medium" color="success" expand="block">Gerar PDF Detalhado</ion-button>
-      </div>          
+        <ion-button (click)="gerarPdf(finan, parcelas)" size="medium" color="success" expand="block">
+          <ion-icon name="document-text-outline" slot="start"></ion-icon>Gerar PDF Detalhado</ion-button>
+      </div> 
+      <div class="ion-margin-vertical" *ngIf="!finan.id">
+        <ion-button (click)="salvarCalc(finan)" size="medium" color="success" expand="block">
+          <ion-icon name="save-outline" slot="start"></ion-icon>Salvar Cálculo</ion-button>
+      </div>               
       <br />
   </div>
 </ion-content>

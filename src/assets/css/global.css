@@ -1,13 +1,30 @@
+
+
 .button-menu {
     margin-bottom: 20px;
 }
  
 .img-banner{
-width: 80% ;
-margin-left: auto;
-margin-right: auto;
-padding-top: 15px;
-padding-bottom: 15px;
+    width: 100% ;
+    margin: 0;
+}
+
+.btn-circle {
+    margin: 5px;
+    background-color: rgb(230, 228, 228);
+    color: rgb(88, 87, 87);
+    padding: 5px;
+    height: 90px;
+    width: 90px;
+    border-radius: 50px;
+}
+
+ion-toolbar{
+    --min-height:30px!important;
+  }
+
+.title{
+    color: #414141;
 }
 
 
@@ -143,7 +160,7 @@ padding-bottom: 15px;
 }
 
 .dataFrame {
-    border: 1px solid #6A82C2;
+    border: 1px solid #d2d2d8;
     margin-top: 5px;
     padding: 5px;
     background-color: #ffffff;  
@@ -156,9 +173,10 @@ padding-bottom: 15px;
 }
 
 .labelTop {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
-    font-weight: bolder;
+    font-style:bold;
+    font-family: "Segoe UI";
+    font-size: larger;
+    color: #161616;
     padding: 10px;
 }
 
@@ -171,6 +189,9 @@ padding-bottom: 15px;
     width: 97%;
     height: 70px;
     background-color: #ffffff;
+    box-shadow: black 0.2em 0.2em 0.1em;
+    border: solid thick;
+    border-radius: 0.3em    
 }
 
 .textAreaQuest {
@@ -182,6 +203,8 @@ padding-bottom: 15px;
     width: 100%;
     height: 80px;
     background-color: #ffffff;
+    border: #999999 solid 1px;
+    border-radius: 0.3em  
 }
 
 .inputQuest {
@@ -193,6 +216,8 @@ padding-bottom: 15px;
     padding-bottom: 10px;
     width: 97%;
     background-color: #ffffff;
+    border: #999999 solid 1px;
+    border-radius: 0.3em 
 }
 
 .inputTaxas {
@@ -207,12 +232,14 @@ padding-bottom: 15px;
     border: 1px solid #2674ce;
     padding-bottom: 10px;
     width: 97%;
-    background-color: #ebebeb;
+    background-color: #dad6d6;
+    border: #999999 solid 1px;
+    border-radius: 0.3em 
 }
 
 .input_taxas_inativas {
     font-size: small;
-    background-color: #ebebeb;    
+    background-color: #dad6d6;    
 }
 
 ion-radio-group {
@@ -222,6 +249,10 @@ ion-radio-group {
     width: 35px;
     height: 35px;
     margin-top: 20px;
+}
+
+.radioLabelH {
+    color: #535151;
 }
 
 .radioQuest ion-label {
@@ -262,7 +293,7 @@ ion-radio-group {
 .radioConclusao ion-radio {
     width: 35px;
     height: 35px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 5%;
 }
 
@@ -302,6 +333,19 @@ ion-radio-group {
     width: 100%;
     height: 90%;
     border: 1px solid #9090b8;
+}
+
+.banco-taxas-modal-css .modal-wrapper {
+    width: 90%;
+    height: 90%;
+    border: 1px solid #9090b8;
+}
+
+.sac-modal-css .modal-wrapper {
+    width: 90%;
+    height: 20%;
+    border: none;
+    border-radius: 30px;
 }
 
 .checkout-modal-css form{
@@ -356,7 +400,7 @@ ion-radio-group {
 }
 
 .finanCheck ion-checkbox{
-    --border-color: #2674ce;
+    --border-color: #999999;
     --border-width: 1px;
 }
 
@@ -369,4 +413,6 @@ ion-radio-group {
     padding-bottom: 10px;
     width: 97%;
     background-color: #ffffff;
+    border: #999999 solid 1px;
+    border-radius: 0.3em  
 }

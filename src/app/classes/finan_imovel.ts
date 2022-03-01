@@ -1,125 +1,62 @@
+import { AbstractClass } from "./abstract_class";
+
 // tslint:disable: variable-name
-export class FinanImovel {
-    id:                           number;
-    banco_id:                     number;
-    banco_nome:                   string;
-    salario:                      any;
-    total_imovel_val:             any;
-    itbi_escritura_val:           any;
-    itbi_escritura_choice:        string;
-    avaliacao_garantia_val:       any;
-    avaliacao_garantia_choice:    string;
-    total_somas:                  any;
-    total_imovel_parcelado_val:   any;
-    total_juros_somados_val:      any;
-    total_perdas_somados_val:     any;  
-    entrada_val:                  any;
-    saldo_devedor_val:            any;
-    qtd_parcelas_anos:            any;
-    qtd_parcelas_meses:           any;
-    percent_juros_anual:          number;
-    percent_juros_mensal:         number;
-    amortizacao_mensal_val:       any;
-    juros_mensal_val:             any;
-    taxa1_mensal_val:             any;
-    taxa2_mensal_val:             any;
-    taxa3_mensal_val:             any;
-    taxa4_mensal_val:             any;
-    taxa5_mensal_val:             any;
-    taxa1_mensal:                 string;
-    taxa2_mensal:                 string;
-    taxa3_mensal:                 string;
-    taxa4_mensal:                 string;
-    taxa5_mensal:                 string;
-    taxa1_mensal_check:           number;
-    taxa2_mensal_check:           number;
-    taxa3_mensal_check:           number;
-    taxa4_mensal_check:           number;
-    taxa5_mensal_check:           number;    
-    taxa1_mensal_porcent:         any;
-    taxa2_mensal_porcent:         any;
-    taxa3_mensal_porcent:         any;
-    taxa4_mensal_porcent:         any;
-    taxa5_mensal_porcent:         any;
-    total_taxa1_val:              any;
-    total_taxa2_val:              any;
-    total_taxa3_val:              any;
-    total_taxa4_val:              any;
-    total_taxa5_val:              any;       
-    total_taxas_somados_val:      any;
-    perda_mensal_val:             any;
-    salario_parcela_val:          any;
-    
-    poup_mensal_val:              any;
-    poup_meses:                   any;
-    poup_anos:                    any;
-    amortizacao_futura_val:       any;
-    qtd_meses_amortizacao:        any;
-    qtd_meses_restantes:          any;
-    primeira_parcela:             any;
-    ultima_parcela:               any;
-}
-
-export class FinanImovelArray {
-
-    finanImovelJson: FinanImovel = {
-        id:                           null,
-        banco_id:                     null,
-        banco_nome:                   null,
-        salario:                      null,
-        total_imovel_val:             null,
-        itbi_escritura_val:           null,
-        itbi_escritura_choice:        null,
-        avaliacao_garantia_val:       null,
-        avaliacao_garantia_choice:    null,
-        total_somas:                  null,
-        total_imovel_parcelado_val:   null,
-        total_juros_somados_val:      null,
-        total_perdas_somados_val:     null,                    
-        entrada_val:                  null,
-        saldo_devedor_val:            null,
-        qtd_parcelas_anos:            null,
-        qtd_parcelas_meses:           null,
-        percent_juros_anual:          null,
-        percent_juros_mensal:         null,
-        amortizacao_mensal_val:       null,
-        juros_mensal_val:             null,
-        taxa1_mensal_val:             null,
-        taxa2_mensal_val:             null,
-        taxa3_mensal_val:             null,
-        taxa4_mensal_val:             null,
-        taxa5_mensal_val:             null,
-        taxa1_mensal:                 null,
-        taxa2_mensal:                 null,
-        taxa3_mensal:                 null,
-        taxa4_mensal:                 null,
-        taxa5_mensal:                 null,
-        taxa1_mensal_porcent:         null,
-        taxa2_mensal_porcent:         null,
-        taxa3_mensal_porcent:         null,
-        taxa4_mensal_porcent:         null,
-        taxa5_mensal_porcent:         null,
-        taxa1_mensal_check:           null,
-        taxa2_mensal_check:           null,
-        taxa3_mensal_check:           null,
-        taxa4_mensal_check:           null,
-        taxa5_mensal_check:           null,
-        total_taxa1_val:              null,
-        total_taxa2_val:              null,
-        total_taxa3_val:              null,
-        total_taxa4_val:              null,
-        total_taxa5_val:              null,                  
-        total_taxas_somados_val:      null,                    
-        perda_mensal_val:             null,
-        salario_parcela_val:          null,
-    
-        poup_mensal_val:              null,
-        poup_meses:                   null,
-        poup_anos:                    null,
-        amortizacao_futura_val:       null,
-        qtd_meses_amortizacao:        null,
-        qtd_meses_restantes:          null,
-        primeira_parcela:             null,
-        ultima_parcela:               null,
-    };
+export class FinanImovel extends AbstractClass{
+    banco_id:                     number = null;
+    banco_nome:                   string = null;
+    salario:                      any    = null;
+    total_imovel_val:             any    = null;
+    itbi_escritura_val:           any    = null;
+    itbi_escritura_choice:        string = null;
+    avaliacao_garantia_val:       any    = null;
+    avaliacao_garantia_choice:    string = null;
+    total_somas:                  any    = null;
+    total_imovel_parcelado_val:   any    = null;
+    total_juros_somados_val:      any    = null;
+    total_perdas_somados_val:     any    = null;
+    total_somas_perdas:           any    = null;  
+    entrada_val:                  any    = null;
+    saldo_devedor_val:            any    = null;
+    qtd_parcelas_anos:            any    = null;
+    qtd_parcelas_meses:           any    = null;
+    percent_juros_anual:          number = null;
+    percent_juros_mensal:         number = null;
+    amortizacao_mensal_val:       any    = null;
+    juros_mensal_val:             any    = null;
+    taxa1_mensal_val:             any    = null;
+    taxa2_mensal_val:             any    = null;
+    taxa3_mensal_val:             any    = null;
+    taxa4_mensal_val:             any    = null;
+    taxa5_mensal_val:             any    = null;
+    taxa1_mensal:                 string = null;
+    taxa2_mensal:                 string = null;
+    taxa3_mensal:                 string = null;
+    taxa4_mensal:                 string = null;
+    taxa5_mensal:                 string = null;
+    taxa1_mensal_check:           number = null;
+    taxa2_mensal_check:           number = null;
+    taxa3_mensal_check:           number = null;
+    taxa4_mensal_check:           number = null;
+    taxa5_mensal_check:           number = null;    
+    taxa1_mensal_porcent:         any    = null;
+    taxa2_mensal_porcent:         any    = null;
+    taxa3_mensal_porcent:         any    = null;
+    taxa4_mensal_porcent:         any    = null;
+    taxa5_mensal_porcent:         any    = null;
+    total_taxa1_val:              any    = null;
+    total_taxa2_val:              any    = null;
+    total_taxa3_val:              any    = null;
+    total_taxa4_val:              any    = null;
+    total_taxa5_val:              any    = null;       
+    total_taxas_somados_val:      any    = null;
+    perda_mensal_val:             any    = null;
+    salario_parcela_val:          any    = null;
+    poup_mensal_val:              any    = null;
+    poup_meses:                   any    = null;
+    poup_anos:                    any    = null;
+    amortizacao_futura_val:       any    = null;
+    qtd_meses_amortizacao:        any    = null;
+    qtd_meses_restantes:          any    = null;
+    primeira_parcela:             any    = null;
+    ultima_parcela:               any    = null;
 }

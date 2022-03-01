@@ -66,15 +66,43 @@ const routes: Routes = [
   },
   {
     path: 'finan-imovel',
-    loadChildren: () => import('./pages/finan-imovel/finan-imovel.module').then( m => m.FinanImovelPageModule)
+    loadChildren: () => import('./pages/finan-imovel-sac/finan-imovel/finan-imovel.module').then( m => m.FinanImovelPageModule)
+  },
+  {
+    path: 'finan-imovel-calc/edit/:finanId',
+    loadChildren: () => import('./pages/finan-imovel-sac/finan-imovel-calc/finan-imovel-calc.module').then( m => m.FinanImovelCalcPageModule)
   },
   {
     path: 'finan-imovel-calc',
-    loadChildren: () => import('./pages/finan-imovel-calc/finan-imovel-calc.module').then( m => m.FinanImovelCalcPageModule)
+    loadChildren: () => import('./pages/finan-imovel-sac/finan-imovel-calc/finan-imovel-calc.module').then( m => m.FinanImovelCalcPageModule)
   },
   {
     path: 'banco-taxas',
     loadChildren: () => import('./pages/banco-taxas/banco-taxas.module').then( m => m.BancoTaxasPageModule)
+  },
+  {
+    path: 'finan-imovel-calc-list',
+    loadChildren: () => import('./pages/finan-imovel-sac/finan-imovel-calc-list/finan-imovel-calc-list.module').then( m => m.FinanImovelCalcListPageModule)
+  },
+  {
+    path: 'config',
+    loadChildren: () => import('./pages/config/config.module').then( m => m.ConfigPageModule)
+  },
+  {
+    path: 'price-form',
+    loadChildren: () => import('./pages/finan-imovel-price/price-form/price-form.module').then( m => m.PriceFormPageModule)
+  },
+  {
+    path: 'price-calc/edit/:finanId',
+    loadChildren: () => import('./pages/finan-imovel-price/price-calc/price-calc.module').then( m => m.PriceCalcPageModule)
+  },  
+  {
+    path: 'price-calc',
+    loadChildren: () => import('./pages/finan-imovel-price/price-calc/price-calc.module').then( m => m.PriceCalcPageModule)
+  },
+  {
+    path: 'price-list',
+    loadChildren: () => import('./pages/finan-imovel-price/price-list/price-list.module').then( m => m.PriceListPageModule)
   }
 ];
 

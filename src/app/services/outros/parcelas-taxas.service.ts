@@ -171,8 +171,8 @@ export class ParcelasTaxasService {
           (!isUndefined(item.taxa3_mensal) ? item.taxa3_mensal : null) ,
           (!isUndefined(item.taxa4_mensal) ? item.taxa4_mensal : null) ,
           (!isUndefined(item.taxa5_mensal) ? item.taxa5_mensal : null) ,
-              'J+Taxas',
-                'Total',
+              'Juros+Tax',
+                'Total Parc.',
            'Sal. Dev.'
           ];
           head = head.filter(  (el) => { return el !== null });

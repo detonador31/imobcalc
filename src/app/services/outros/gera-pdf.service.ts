@@ -22,10 +22,10 @@ export class GeraPdfService {
   finan: any = null;
 
   constructor(
-    private helper: HelperService,
-    private plt: Platform,
-    private fileOpener: FileOpener,
-    private file: File, 
+    private helper:      HelperService,
+    private plt:         Platform,
+    private fileOpener:  FileOpener,
+    private file:        File, 
     private parcelaServ: ParcelasTaxasService
   ) { }
 
@@ -44,8 +44,9 @@ export class GeraPdfService {
   }  
 
   async geraFinamImovel(data) {
-    const parcelas = data['parcelas'];
-    const finan = data['finan'];
+    const parcelas      = data['parcelas'];
+    const finan         = data['finan'];
+    const titulo        = finan.primeira_parcela === undefined ? "PRICE" : "SAC";
     const finanPdfArray = await this.finanArrayToPdf(finan);
     const parcelasPdfArray = await this.parcelaServ.parcelasForPdf(parcelas);
     const styles: any =
@@ -67,12 +68,14 @@ export class GeraPdfService {
 
     const documento = {
       content: [
-        {text: 'Financiamento Imobiliário (SAC)', style: 'header'},
+        {text: 'Financiamento Imobiliário (' + titulo + ')', style: 'header'},
  /*        {text: '', style: 'subheader'}, */
       
-        'Este documento tem como objetivo esclarecer um financiamento baseado na tabela SAC.' +
+        'Este documento tem como objetivo esclarecer um financiamento baseado na tabela ' + titulo + '.'           +
         ' As taxas e juros aqui simulados são baseados em simuladores de instituições bancarias pré-selecionadas.' +
         ' Não podemos garantir que serão os mesmos juros ou taxas no ato de uma contratação.',
+        ' Os valores de seguros e taxas podem variar de acordo com a idade do cliente e outras definições no ato' +
+        ' do pedido de crédito.',
         {text: 'Informações Gerais', style: 'subheader'},
         {text: '', style: 'subheader'},        
         {
@@ -135,8 +138,10 @@ export class GeraPdfService {
     finamPdfArray.push(['Avaliação de Garantia',    'R$ ' + this.helper.numberToCurrency( finan.avaliacao_garantia_val)]);
     finamPdfArray.push(['Saldo Devedor',            'R$ ' + this.helper.numberToCurrency( finan.saldo_devedor_val)]);
     finamPdfArray.push(['Parcelas',                  finan.qtd_parcelas_meses]);
-    finan.amortizacao_mensal_val = this.helper.arredondarPraCima(finan.amortizacao_mensal_val, 2);
-    finamPdfArray.push(['Amortização Mensal',       'R$ ' + this.helper.numberToCurrency(finan.amortizacao_mensal_val)]);
+    if(finan.amortizacao_mensal_val) {
+      finan.amortizacao_mensal_val = this.helper.arredondarPraCima(finan.amortizacao_mensal_val, 2);
+      finamPdfArray.push(['Amortização Mensal',       'R$ ' + this.helper.numberToCurrency(finan.amortizacao_mensal_val)]);
+    }
     finamPdfArray.push(['Juros Anuais',             this.helper.convertPorcentagemDecimal(finan.percent_juros_anual, 2) + '%']);
     finamPdfArray.push(['Juros Mensais',            this.helper.convertPorcentagemDecimal(finan.percent_juros_mensal, 3) + '%']);
     finamPdfArray = await this.taxasMensais(finamPdfArray, finan, 'mensal');

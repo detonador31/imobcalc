@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+import { EntFinanImovelService } from './../../../services/entity/ent-finan_imovel';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavController, Platform } from '@ionic/angular';
 import { FinanImovel } from 'src/app/classes/finan_imovel';
@@ -14,6 +16,7 @@ import { ParcelasTaxasService } from 'src/app/services/outros/parcelas-taxas.ser
 export class FinanImovelCalcPage implements OnInit {
 
   finan: FinanImovel = new FinanImovel();
+  finanTosave: FinanImovel = new FinanImovel();
   parcelas: any[] = [];
   loading: any;
 
@@ -24,7 +27,9 @@ export class FinanImovelCalcPage implements OnInit {
     private modalCtrl: ModalController,
     private geraPDF: GeraPdfService,
     private geraParcelas: ParcelasTaxasService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private EntfinanImovel: EntFinanImovelService,
+    private route: ActivatedRoute
   ) {
     this.platform.backButton.subscribeWithPriority(10000, () => {
       this.backPage();
@@ -32,11 +37,27 @@ export class FinanImovelCalcPage implements OnInit {
   }
   
   async ngOnInit() {
+    // Gera Nova Consulta ou abre consulta salva para edição
+    const finanId  = parseFloat(this.route.snapshot.paramMap.get('finanId'));
+
     this.loading = await this.loadingCtrl.create({message: 'Calculando...'});
     await this.loading.present();
-    
-    this.finan = await this.helper.getLocaStoragetoObject('finan');
+
+    if(finanId) {
+      this.finan = await this.getFinanImovebyId(finanId);
+    } else {
+      this.finan = await this.helper.getLocaStoragetoObject('finan');
+    }
     await this.calculosIniciais();
+/*     this.finan = await this.stringToNumber(this.finan);
+    console.log('Total', this.finan.total_imovel_val);
+    console.log('Entrada', this.finan.entrada_val);
+    console.log('Itbi + Escritura', this.finan.itbi_escritura_val);
+    console.log('Total Parcelado', this.finan.total_imovel_parcelado_val); */
+    console.log(this.finan);
+
+    this.loading.dismiss();
+    
   }
 
   /**
@@ -56,8 +77,6 @@ export class FinanImovelCalcPage implements OnInit {
     const data                          = await this.geraParcelas.calculaParcelas(this.finan);
     this.parcelas = data ? data['parcelas'] : null;
     this.finan = data ? data['finan'] : this.finan;
-
-    this.loading.dismiss();
   }
 
   /**
@@ -129,6 +148,50 @@ export class FinanImovelCalcPage implements OnInit {
     await this.geraPDF.gerarPdf(data, 'finanImovel');
 
     this.loading.dismiss();
+  }  
+
+  /**
+   * Salva dados preenchidos para novo calculo
+   * author Silvio Watakabe <silvio@tcmed.com.br> 
+   * @since 12-12-2021
+   * @version 1.0
+   * @param finan: FinanImovel
+   * @return boolean
+   */   
+   async salvarCalc(finan: FinanImovel) {
+    this.loading = await this.loadingCtrl.create({message: 'Salvando...'});
+    await this.loading.present();
+    await this.EntfinanImovel.save(finan);
+    await this.calculosIniciais();
+    await this.helper.toast('Sucesso', 'Consulta Salva com sucesso!', 'success', 'middle', 3000);
+    await this.loading.dismiss();
+  }    
+
+  /**
+   * Salva dados preenchidos para novo calculo
+   * author Silvio Watakabe <silvio@tcmed.com.br> 
+   * @since 12-12-2021
+   * @version 1.0
+   * @param finan: FinanImovel
+   * @return boolean
+   */   
+   async getFinanImovebyId(finanId: any) {
+    const finanImovel = this.EntfinanImovel.getItem(finanId);
+    return finanImovel;
+  }   
+  
+  /**
+   * Trata dados de string para números antes de fazer os calculos
+   * author Silvio Watakabe <silvio@tcmed.com.br> 
+   * @since 01-11-2020
+   * @version 1.0
+   * @param finan: FinanImovel
+   */   
+   async stringToNumber(finan: FinanImovel) {
+
+    finan.total_imovel_val    = parseInt(finan.total_imovel_val);
+    finan.itbi_escritura_val  = parseInt(finan.itbi_escritura_val)
+    return finan;
   }  
 
 }

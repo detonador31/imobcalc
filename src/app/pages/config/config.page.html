@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <!-- Botão Voltar -->
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="backPage()">
+        <ion-icon  name="arrow-back-outline" size="large" ></ion-icon>&nbsp; Voltar
+      </ion-button>
+    </ion-buttons>      
+    <ion-title>Configuração</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button size=large></ion-menu-button>
+    </ion-buttons>    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>Alternar Tema</ion-label>
+          <ion-toggle (ionChange)="onToggleEvent($event)"></ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

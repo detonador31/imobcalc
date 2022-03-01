@@ -20,7 +20,7 @@ export abstract class EntAbstract {
   tableName: string = null;
   public db: DatabaseService;
   public helper: HelperService;
-  public datepipe: DatePipe;
+  public datepipe: DatePipe; 
 
 
   /**

@@ -1,0 +1,41 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="secondary">
+    <ion-title > Detalhe do parcelamento</ion-title>
+    <ion-buttons size="large" slot="end">
+      <ion-button (click)="fecharModal()">Close</ion-button>
+    </ion-buttons>
+    <!-- Título -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="header-row">
+    <ion-col size="2">
+      Parc.
+    </ion-col>
+    <ion-col size="3">
+      Valor
+    </ion-col>
+    <ion-col size="3">
+      Juros
+    </ion-col>
+    <ion-col size="4">
+      Saldo Devedor
+    </ion-col>
+  </ion-row>
+  <ion-row  *ngFor="let item of parcelas"  class="data-row" >
+    <ion-col size="2" class="data-col-medium data-col-smaller ">
+      {{item.numParcela}}
+    </ion-col>
+    <ion-col size="3" class="data-col-medium data-col-smaller ">
+      {{item.total | currency: 'BRL' : 'R$'}}
+    </ion-col>
+    <ion-col size="3" class="data-col-medium data-col-smaller ">
+      {{item.juros | currency: 'BRL' : 'R$'}}
+    </ion-col>
+    <ion-col size="4" class="data-col-medium data-col-smaller ">
+      {{item.saldoDevedor | currency: 'BRL' : 'R$'}}
+    </ion-col>
+  </ion-row>
+</ion-content>

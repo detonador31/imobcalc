@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FinanImovelCalcPageRoutingModule } from './finan-imovel-calc-routing.module';
 
 import { FinanImovelCalcPage } from './finan-imovel-calc.page';
-import { FinanDetalheModalComponent } from './../../component/finan-detalhe-modal/finan-detalhe-modal.component';
+import { FinanDetalheModalComponent } from './../../../component/finan-detalhe-modal/finan-detalhe-modal.component';
 
 @NgModule({
   imports: [

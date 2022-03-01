@@ -21,10 +21,30 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'Taxas por Banco',
+      title: 'Cadastro de Bancos e Taxas',
       url: 'banco-taxas',
       icon: 'bar-chart'
     },
+    {
+      title: 'Financiamento Imobiliario',
+      url: 'finan-imovel',
+      icon: 'calculator'
+    },
+    {
+      title: 'Lista de Financiamentos Imobiliarios Salvos',
+      url: 'finan-imovel-calc-list',
+      icon: 'list'
+    },
+    {
+      title: 'Configuração',
+      url: 'config',
+      icon: 'cog'
+    },
+    {
+      title: 'Nova Página Inicial',
+      url: 'inicial',
+      icon: 'business' 
+    }               
   ];
 
   constructor(

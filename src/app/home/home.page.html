@@ -3,17 +3,114 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>    
-    <ion-title>Tecnomed Mobile</ion-title>
+    <ion-title>Aplicativo de Financiamentos</ion-title>
   </ion-toolbar>
-    <h1>&nbsp; Status de Conexão: {{ status }}</h1>
+  <ion-img  class="img-banner" src='./assets/img/financi.jpg' ></ion-img>
+<!--   <ion-toolbar color="{{ statusClass }}">
+    <span>&nbsp; Status de Conexão: {{ status }}</span>
+  </ion-toolbar> -->
+
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-img  class="img-banner" src='./assets/img/tcmed_logo.png' ></ion-img>
-  <ion-button class="button-menu" size="medium" routerLink="/finan-imovel" expand="block">
+
+
+  
+
+
+  <br />
+  <br />
+
+  <ion-grid style="color: rgb(78, 76, 76); text-align: center;"> 
+    <ion-row>
+      <ion-col size="6">
+        <button class="btn-circle" routerLink="/banco-taxas">
+          <ion-icon slot="start" size="large" name="cash-outline"></ion-icon>
+        </button><br />
+        Cadastro de Taxas Bancarias       
+      </ion-col>
+      <ion-col size="6">
+        <button class="btn-circle" (click)="openSacModal()">
+          <ion-icon slot="start" size="large" name="wallet-outline"></ion-icon>
+        </button><br />
+        Imobiliário SAC
+      </ion-col>  
+    </ion-row>  
+    <br />
+    <br />
+    <br />
+    <ion-row>
+      <ion-col size="6">
+        <button class="btn-circle" (click)="openPriceModal()">
+          <ion-icon slot="start" size="large" name="wallet"></ion-icon>
+        </button><br />
+        Imobiliário PRICE       
+      </ion-col>
+      <ion-col size="6">
+        <button class="btn-circle" (click)="fechaApp()">
+          <ion-icon slot="start" size="large" name="exit-outline"></ion-icon>
+        </button><br />
+        Fechar
+      </ion-col>  
+    </ion-row>      
+  </ion-grid>
+
+
+<!--   <ion-button class="button-menu" size="medium" routerLink="/finan-imovel" expand="block">
     Financiamento Imobiliário
   </ion-button>
   <ion-button class="button-menu" size="medium" (click)="fechaApp()" expand="block">
     Fechar APP
-  </ion-button >
+  </ion-button > -->
+
+
+
+
+<!--   <ion-item detail routerLink="/banco-taxas">
+    <ion-icon slot="start" name="cash-outline"></ion-icon>
+    <ion-label>Cadastro de Taxas Bancarias</ion-label>
+  </ion-item>
+  <ion-item detail (click)="openSacModal()">
+    <ion-icon slot="start" name="wallet-outline"></ion-icon>
+    <ion-label>Imobiliário SAC</ion-label>
+  </ion-item>   -->
+
+
+
+
+<!--   <ion-item detail routerLink="/finan-imovel">
+    <ion-icon slot="start" name="wallet-outline"></ion-icon>
+    <ion-label>Imobiliário(SAC)</ion-label>
+  </ion-item>
+  <ion-item detail routerLink="/finan-imovel-calc-list">
+    <ion-icon slot="start" name="list-outline"></ion-icon>
+    <ion-label>Imobiliário(SAC) Salvos</ion-label>
+  </ion-item> -->
+
+<!--   <ion-item detail (click)="openPriceModal()">
+    <ion-icon slot="start" name="wallet-outline"></ion-icon>
+    <ion-label>Imobiliário PRICE</ion-label>
+  </ion-item>   --> 
+
+<!--   <ion-item detail routerLink="/price-form">
+    <ion-icon slot="start" name="wallet-outline"></ion-icon>
+    <ion-label>Imobiliário(PRICE)</ion-label>
+  </ion-item>
+  <ion-item detail routerLink="/price-list">
+    <ion-icon slot="start" name="list-outline"></ion-icon>
+    <ion-label>Imobiliário(PRICE) Salvos</ion-label>
+  </ion-item>   -->
+
+<!--   <ion-item detail routerLink="/config">
+    <ion-icon slot="start" name="cog-outline"></ion-icon>
+    <ion-label>Configuração</ion-label>
+  </ion-item>   --> 
+
+
+
+<!--   <ion-item detail (click)="fechaApp()">
+    <ion-icon slot="start" name="exit-outline"></ion-icon>
+    <ion-label>Fechar</ion-label>
+  </ion-item>   -->  
+
 </ion-content>

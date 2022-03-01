@@ -1,6 +1,6 @@
 {
-  "appId": "com.tcmed.tcmedapp",
-  "appName": "tcmed-app",
+  "appId": "com.finan.finanapp",
+  "appName": "finan-app",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
@@ -22,7 +22,6 @@
     }
   },
   "server": {
-    "url": "http://192.168.15.19:8100",
-    "originalUrl": "http://192.168.15.14:8100"
+    "url": "http://192.168.15.14:8100"
   }
 }

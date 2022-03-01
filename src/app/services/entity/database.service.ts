@@ -1,11 +1,14 @@
+import { throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { BrowserStack } from 'protractor/built/driverProviders';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
+  finan_imoveis: any;
 
   // Declara um objeto SQLite;
   db: SQLiteObject;
@@ -17,7 +20,8 @@ export class DatabaseService {
     // Dependências para o SQLite
     private sqlite: SQLite,
     private sqlitePorter: SQLitePorter,
-  ) { }
+  ) {  
+  }
 
   // Abre ou cria o Banco de dados
   async openDatabase() {
@@ -31,18 +35,20 @@ export class DatabaseService {
 
   // Será criado o banco de dados caso não exista
   async createDatabase() {
-    const sqlCreateDatabase = this.getCreateTable();
+    const sqlCreateDatabase = await this.getCreateTable();
     const result = await this.sqlitePorter.importSqlToDb(this.db, sqlCreateDatabase);
     return result ? true : false;
   }
 
   // Retorna o comando para ser usado no método createDatabase
-  getCreateTable() {
-    const sqls = [];
+  async getCreateTable() {
+    const sqls = [];    
 
   // Comando para remover tabela
 /*   sqls.push('DROP TABLE last_login;'); */
 /*   sqls.push('DROP TABLE banco_taxas;'); */
+/*   sqls.push('DROP TABLE finan_imovel;'); */
+
 
 /*     sqls.push('DROP TABLE bloco;');
     sqls.push('DROP TABLE bloco_item;');
@@ -52,6 +58,8 @@ export class DatabaseService {
     sqls.push('DROP TABLE consulta_anterior;');
     sqls.push('DROP TABLE consulta_enviar;'); */
 
+    // Tabela de finan_imovel    
+ 
     // Tabela de banco_taxas
     sqls.push('CREATE TABLE IF NOT EXISTS banco_taxas (' +
       'id integer primary key AUTOINCREMENT NOT NULL,' +
@@ -466,6 +474,12 @@ export class DatabaseService {
 
     ');');
 
+    // Cria a tabela FinanTable caso não exista
+    const finanTable = await this.finanImoveisTable();
+    sqls.push(finanTable);
+    const finanTablePrice = await this.finanImoveisPriceTable();
+    sqls.push(finanTablePrice);
+
     return sqls.join('\n');
   }
 
@@ -473,5 +487,190 @@ export class DatabaseService {
   executeSQL(sql: string, params?: any[]) {
     return this.db.executeSql(sql, params);
   }
+
+
+  /**
+   * Carrega um registro conforme Data
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 12-12-2021
+   * @version 1.0
+   * @param fieldsArray []
+   * @return field string
+   */
+  // tslint:disable-next-line: variable-name
+  async createTable(fieldsArray: any[], tableName: String) {
+    if(!fieldsArray) {
+      return null;
+    }
+    let tableString = 'CREATE TABLE IF NOT EXISTS ' + tableName + ' (';
+    for (let i = 0; i < fieldsArray.length; i++) {
+      const field = fieldsArray[i];
+      switch (field.type) { 
+        case 'var':
+          if(!field.size){
+            const erro = 'Tamanho do campo Varchar ' + field.campo + ' na tabela ' + tableName + ' não especificado!'
+           throwError(erro);
+           console.log(erro);
+           return null;
+          }
+          tableString += field.campo + ' VARCHAR (' + field.size + '), ';
+          break;
+        case 'text':
+          tableString += field.campo + ' VARCHAR (' + field.size + '), ';
+          break;     
+        case 'int':
+          tableString += field.campo + ' integer, ';
+          break;
+        case 'date':
+          tableString += field.campo + ' Date, ';
+          break;
+        case 'primary':
+          tableString += 'id integer primary key AUTOINCREMENT NOT NULL, ';
+          break;
+      }
+    }
+
+    tableString = tableString.replace(/,\s*$/, "");
+    tableString += ');';
+    return tableString;
+  } 
+  
+  async finanImoveisTable() {
+    const finanImoveisTb = [
+      {campo: 'id',                         type: 'primary', size: null},
+      {campo: 'banco_id',                   type: 'int',     size: null},
+      {campo: 'banco_nome',                 type: 'var',     size: 100},
+      {campo: 'salario',                    type: 'int',     size: null},
+      {campo: 'total_imovel_val',           type: 'int',     size: null},
+      {campo: 'itbi_escritura_val',         type: 'int',     size: null},
+      {campo: 'itbi_escritura_choice',      type: 'int',     size: null},
+      {campo: 'avaliacao_garantia_val',     type: 'int',     size: null},
+      {campo: 'avaliacao_garantia_choice',  type: 'var',     size: 10},
+      {campo: 'total_somas',                type: 'int',     size: null},
+      {campo: 'total_imovel_parcelado_val', type: 'int',     size: null},
+      {campo: 'total_juros_somados_val',    type: 'int',     size: null},
+      {campo: 'total_perdas_somados_val',   type: 'int',     size: null},
+      {campo: 'total_somas_perdas',         type: 'int',     size: null},
+      {campo: 'entrada_val',                type: 'int',     size: null},
+      {campo: 'saldo_devedor_val',          type: 'int',     size: null},
+      {campo: 'qtd_parcelas_anos',          type: 'int',     size: null},
+      {campo: 'qtd_parcelas_meses',         type: 'int',     size: null},
+      {campo: 'percent_juros_anual',        type: 'int',     size: null},
+      {campo: 'percent_juros_mensal',       type: 'int',     size: null},
+      {campo: 'amortizacao_mensal_val',     type: 'int',     size: null},
+      {campo: 'juros_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa1_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa2_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa3_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa4_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa5_mensal_val',           type: 'int',     size: null},     
+      {campo: 'taxa1_mensal',               type: 'var',     size: 30},  
+      {campo: 'taxa2_mensal',               type: 'var',     size: 30},
+      {campo: 'taxa3_mensal',               type: 'var',     size: 30},
+      {campo: 'taxa4_mensal',               type: 'var',     size: 30},
+      {campo: 'taxa5_mensal',               type: 'var',     size: 30},
+      {campo: 'taxa1_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa2_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa3_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa4_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa5_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa1_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'taxa2_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'taxa3_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'taxa4_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'taxa5_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'total_taxa1_val',            type: 'int',     size: null},
+      {campo: 'total_taxa2_val',            type: 'int',     size: null},
+      {campo: 'total_taxa3_val',            type: 'int',     size: null},
+      {campo: 'total_taxa4_val',            type: 'int',     size: null},
+      {campo: 'total_taxa5_val',            type: 'int',     size: null},
+      {campo: 'total_taxas_somados_val',    type: 'int',     size: null},
+      {campo: 'perda_mensal_val',           type: 'int',     size: null},
+      {campo: 'salario_parcela_val',        type: 'int',     size: null},
+      {campo: 'poup_mensal_val',            type: 'int',     size: null},
+      {campo: 'poup_meses',                 type: 'int',     size: null},
+      {campo: 'poup_anos',                  type: 'int',     size: null},
+      {campo: 'amortizacao_futura_val',     type: 'int',     size: null},
+      {campo: 'qtd_meses_amortizacao',      type: 'int',     size: null},
+      {campo: 'qtd_meses_restantes',        type: 'int',     size: null},
+      {campo: 'primeira_parcela',           type: 'int',     size: null},
+      {campo: 'ultima_parcela',             type: 'int',     size: null},
+      {campo: 'created_at Date',            type: 'date',    size: null},
+      {campo: 'updated_at',                 type: 'date',    size: null},      
+    ];
+
+    const table = await this.createTable(finanImoveisTb, 'finan_imovel');
+    
+    return table;
+
+  }
+
+  async finanImoveisPriceTable() {
+    const tableFields = [
+      {campo: 'id',                         type: 'primary', size: null},
+      {campo: 'banco_id',                   type: 'int',     size: null},
+      {campo: 'banco_nome',                 type: 'var',     size: 100},
+      {campo: 'salario',                    type: 'int',     size: null},
+      {campo: 'total_imovel_val',           type: 'int',     size: null},
+      {campo: 'itbi_escritura_val',         type: 'int',     size: null},
+      {campo: 'itbi_escritura_choice',      type: 'int',     size: null},
+      {campo: 'avaliacao_garantia_val',     type: 'int',     size: null},
+      {campo: 'avaliacao_garantia_choice',  type: 'var',     size: 10},
+      {campo: 'total_somas',                type: 'int',     size: null},
+      {campo: 'total_imovel_parcelado_val', type: 'int',     size: null},
+      {campo: 'total_juros_somados_val',    type: 'int',     size: null},
+      {campo: 'total_perdas_somados_val',   type: 'int',     size: null},
+      {campo: 'total_somas_perdas',         type: 'int',     size: null},
+      {campo: 'entrada_val',                type: 'int',     size: null},
+      {campo: 'saldo_devedor_val',          type: 'int',     size: null},
+      {campo: 'qtd_parcelas_anos',          type: 'int',     size: null},
+      {campo: 'qtd_parcelas_meses',         type: 'int',     size: null},
+      {campo: 'percent_juros_anual',        type: 'int',     size: null},
+      {campo: 'percent_juros_mensal',       type: 'int',     size: null},
+      {campo: 'amortizacao_mensal_val',     type: 'int',     size: null},
+      {campo: 'juros_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa1_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa2_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa3_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa4_mensal_val',           type: 'int',     size: null},
+      {campo: 'taxa5_mensal_val',           type: 'int',     size: null},     
+      {campo: 'taxa1_mensal',               type: 'var',     size: 30},  
+      {campo: 'taxa2_mensal',               type: 'var',     size: 30},
+      {campo: 'taxa3_mensal',               type: 'var',     size: 30},
+      {campo: 'taxa4_mensal',               type: 'var',     size: 30},
+      {campo: 'taxa5_mensal',               type: 'var',     size: 30},
+      {campo: 'taxa1_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa2_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa3_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa4_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa5_mensal_check',         type: 'int',     size: null},
+      {campo: 'taxa1_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'taxa2_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'taxa3_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'taxa4_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'taxa5_mensal_porcent',       type: 'int',     size: null},
+      {campo: 'total_taxa1_val',            type: 'int',     size: null},
+      {campo: 'total_taxa2_val',            type: 'int',     size: null},
+      {campo: 'total_taxa3_val',            type: 'int',     size: null},
+      {campo: 'total_taxa4_val',            type: 'int',     size: null},
+      {campo: 'total_taxa5_val',            type: 'int',     size: null},
+      {campo: 'total_taxas_somados_val',    type: 'int',     size: null},
+      {campo: 'perda_mensal_val',           type: 'int',     size: null},
+      {campo: 'salario_parcela_val',        type: 'int',     size: null},
+      {campo: 'poup_mensal_val',            type: 'int',     size: null},
+      {campo: 'poup_meses',                 type: 'int',     size: null},
+      {campo: 'poup_anos',                  type: 'int',     size: null},
+      {campo: 'amortizacao_futura_val',     type: 'int',     size: null},
+      {campo: 'qtd_meses_amortizacao',      type: 'int',     size: null},
+      {campo: 'qtd_meses_restantes',        type: 'int',     size: null},
+      {campo: 'created_at Date',            type: 'date',    size: null},
+      {campo: 'updated_at',                 type: 'date',    size: null},      
+    ];
+
+    const table = await this.createTable(tableFields, 'finan_imovel_price');
+    
+    return table;
+
+  }  
 
 }

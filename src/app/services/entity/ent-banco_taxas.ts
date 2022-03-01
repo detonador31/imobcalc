@@ -51,7 +51,20 @@ export class EntBancoTaxasService extends EntEntity {
     return bancoTaxas;
   }
 
+  /**
+   * Carrega todos os registros
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 23-07-2020
+   * @version 1.0
+   */
+   async getByType(type: String) {
+    const sql = 'SELECT * FROM ' + this.tableName + ' where tipo_finam = ? order by id DESC';
+    const data = [type];
+    const  result = await this.db.executeSQL(sql, data);
+    const  entitys = this.fillEntities(result.rows);
 
+    return entitys;
+  } 
 
 
 

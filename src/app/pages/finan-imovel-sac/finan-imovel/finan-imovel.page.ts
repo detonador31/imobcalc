@@ -1,11 +1,10 @@
-import { JsonsService } from './../../services/outros/jsons.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/services/outros/helper.service';
-import { FinanImovel } from './../../classes/finan_imovel';
+import { FinanImovel } from '../../../classes/finan_imovel';
 import { EntBancoTaxasService } from 'src/app/services/entity/ent-banco_taxas';
 import { BancoTaxas } from 'src/app/classes/banco_taxas';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform, NavController } from '@ionic/angular';
 import { ParcelasTaxasService } from 'src/app/services/outros/parcelas-taxas.service';
 
 @Component({
@@ -25,13 +24,17 @@ export class FinanImovelPage implements OnInit {
     private router: Router,
     private entBancoTaxas: EntBancoTaxasService,
     private loadingCtrl: LoadingController,
-    private jsonsService: JsonsService,
-    private taxasParcelas: ParcelasTaxasService
+    private taxasParcelas: ParcelasTaxasService,
+    private platform: Platform,
+    private navCtr: NavController,    
   ) {  
-        
+    this.platform.backButton.subscribeWithPriority(10000, () => {
+      this.backPage();
+    });        
   }
 
   async ngOnInit() {
+
     this.loading = await this.loadingCtrl.create({message: 'Carregando...'});
     await this.loading.present(); 
 
@@ -47,7 +50,7 @@ export class FinanImovelPage implements OnInit {
    * @version 1.0
    */   
   async getAllBancoTaxas() {
-    const bancoTaxas = await this.entBancoTaxas.getAll();
+    const bancoTaxas = await this.entBancoTaxas.getByType('imobiliario_sac');
     return bancoTaxas;
   }  
 
@@ -176,10 +179,17 @@ export class FinanImovelPage implements OnInit {
       await this.helper.toast('Preenchimento!', 'Selecione o Banco', 'warning', 'middle', 3000);
       return false
     }
+    
     if (!finan.total_imovel_val || finan.total_imovel_val  < 1) {
       await this.helper.toast('Preenchimento!', 'Digite o Valor do Imóvel', 'warning', 'middle', 3000);
       return false
-    }   
+    }  
+    
+    if (!finan.entrada_val || finan.entrada_val  < 1) {
+      await this.helper.toast('Preenchimento!', 'Digite o Valor de entrada', 'warning', 'middle', 3000);
+      return false
+    }       
+
     if (!finan.itbi_escritura_choice) {
       await this.helper.toast('Preenchimento!', 'Incluir ITBI + EScritura? Selecione', 'warning', 'middle', 3000);
       return false
@@ -198,5 +208,15 @@ export class FinanImovelPage implements OnInit {
     }
     return true;
   }
+
+  /**
+   * Volta para a página anterior
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 19-08-2020
+   * @version 1.0
+   */
+   backPage() {
+    this.navCtr.back();
+  }  
 
 }
