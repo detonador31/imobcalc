@@ -82,4 +82,10 @@ export class ApiAgendaService {
       .pipe(retry(10), catchError(this.helper.handleError));
   }
 
+  // Sincroniza Cids na primeira vez que usuário loga
+  jsonBancos(){
+    const baseUrl = 'assets/json/banco-taxas.json';
+    return this.http.get<string>(baseUrl);
+  }  
+
 }

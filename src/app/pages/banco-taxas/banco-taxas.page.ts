@@ -1,3 +1,5 @@
+import { ApiAgendaService } from './../../services/api/api-agenda.service';
+import { JsonsService } from './../../services/outros/jsons.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { EntBancoTaxasService } from 'src/app/services/entity/ent-banco_taxas';
@@ -23,7 +25,9 @@ export class BancoTaxasPage implements OnInit {
     private navCtr: NavController,
     private entBancoTaxas: EntBancoTaxasService,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private jsonsService: JsonsService,
+    private apiAgenda: ApiAgendaService
   ) { 
   }
 
@@ -35,6 +39,26 @@ export class BancoTaxasPage implements OnInit {
 
   async getAllBancoTaxas() {
     this.bancoTaxas = await this.entBancoTaxas.getAll();
+
+    // Lê arquivo Json e salva no BD taxas caso tabela banco_taxa esteja vazia
+    if(this.bancoTaxas.length < 1) {
+      this.apiAgenda.jsonBancos().subscribe(
+        async resul => {
+          const result: any = resul;
+          if(result) {
+            result.forEach(item => {
+              this.entBancoTaxas.save(item);
+            });
+          } 
+        },
+      ); 
+    }
+
+    // Gera um Json Apartir de um array de taxas bancarias
+    // this.geraJsonFromBd(this.bancoTaxas);
+
+    // Busca um array de banco taxas para gravar no BD, segunda opção
+    // const bancoJson = this.jsonsService.taxas;
   }
 
   async salvar(bancoTaxa: BancoTaxas) {
@@ -90,5 +114,24 @@ export class BancoTaxasPage implements OnInit {
     //this.navCtr.back();
     this.router.navigate(['']);
   }
+
+/**
+   * Lê a tabela banco_taxas e print uma string Json, para desenvolvimento
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 19-08-2020
+   * @version 1.0
+   */
+  geraJsonFromBd(bancoTaxas: BancoTaxas[]) {
+    let arrayTaxas = [];
+    const bancoObj = new BancoTaxas();
+    bancoTaxas.forEach(bk => {
+      let array = {};
+      Object.keys(bancoObj).forEach(key =>{
+        array[key] = bk[key];
+      });
+      arrayTaxas.push(array);
+    });
+    console.log(JSON.stringify(arrayTaxas));  
+  }  
 
 }

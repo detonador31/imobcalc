@@ -88,7 +88,7 @@ export class GeraPdfService {
         {text: '', style: 'subheader'},
         {
           style: 'tableParcelas',
-          table: {
+          table: {           
             body: parcelasPdfArray
           }
         },
