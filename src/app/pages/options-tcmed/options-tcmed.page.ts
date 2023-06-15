@@ -13,7 +13,6 @@ import { BlocoItem } from './../../classes/bloco_item';
 import { Funcionario } from './../../classes/funcionario';
 import { Empresa } from './../../classes/empresa';
 import { Usuario } from './../../classes/usuario';
-import { isUndefined } from 'util';
 import { hold } from './../../../environments/environment';
 import { ApiAgendaService } from './../../services/api/api-agenda.service';
 import { Component, OnInit } from '@angular/core';
@@ -175,7 +174,7 @@ export class OptionsTcmedPage implements OnInit {
         let retorno: any;
         retorno = resul;
         // Verificar a existência de dados antes de tentar salvar
-        if (!isUndefined(retorno.blocos)) {
+        if (retorno.blocos !== undefined) {
           if (sistema === hold.tcmed) {
             this.loadingTcmed.dismiss();
             this.loadingTcmed = await this.loadingCtrl.create({message: 'Salvando dados da ' + holdName + ' no BD...'});

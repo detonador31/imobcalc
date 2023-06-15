@@ -1,2 +1,2 @@
 cd\projetos\finan-app\
-ionic capacitor run android -l --address=0.0.0.0
+ionic capacitor run android -l --host=0.0.0.0

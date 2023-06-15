@@ -1,5 +1,4 @@
 import { NavController, Platform } from '@ionic/angular';
-import { isUndefined } from 'util';
 import { EntConsultaEnviarService } from './../../services/entity/ent-consulta_enviar.service';
 import { Consulta } from './../../classes/consulta';
 import { HelperService } from './../../services/outros/helper.service';
@@ -70,7 +69,7 @@ export class ListFuncionariosPage implements OnInit {
     this.funcionarios.forEach(async item => {
       const funcId = this.helper.removeHoldFromId(item.id);
       this.consulta = await this.entConsultaEnviar.getItemByFunc(funcId, item.hold);
-      if (!isUndefined(this.consulta.id)) {
+      if (this.consulta.id !== undefined) {
         item.consultaId     = this.consulta.id;
         item.consultaStatus = this.consulta.status;
         item.descri         = this.consulta.status === 'nao_enviada' ?
@@ -101,7 +100,7 @@ export class ListFuncionariosPage implements OnInit {
       this.funcionarios.forEach(async item => {
         const funcId = this.helper.removeHoldFromId(item.id);
         this.consulta = await this.entConsultaEnviar.getItemByFunc(funcId, item.hold);
-        if (!isUndefined(this.consulta.id)) {
+        if (this.consulta.id !== undefined) {
           item.consultaId     = this.consulta.id;
           item.consultaStatus = this.consulta.status;
           item.descri         = this.consulta.status === 'nao_enviada' ?

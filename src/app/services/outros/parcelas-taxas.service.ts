@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FinanImovel } from 'src/app/classes/finan_imovel';
-import { isUndefined } from 'util';
 import { HelperService } from './helper.service';
 
 @Injectable({
@@ -166,11 +165,11 @@ export class ParcelasTaxasService {
                  'Par.',
              'Amortiz.',
                 'Juros',
-          (!isUndefined(item.taxa1_mensal) ? item.taxa1_mensal : null) ,
-          (!isUndefined(item.taxa2_mensal) ? item.taxa2_mensal : null) ,
-          (!isUndefined(item.taxa3_mensal) ? item.taxa3_mensal : null) ,
-          (!isUndefined(item.taxa4_mensal) ? item.taxa4_mensal : null) ,
-          (!isUndefined(item.taxa5_mensal) ? item.taxa5_mensal : null) ,
+          (item.taxa1_mensal !== undefined ? item.taxa1_mensal : null) ,
+          (item.taxa2_mensal !== undefined ? item.taxa2_mensal : null) ,
+          (item.taxa3_mensal !== undefined ? item.taxa3_mensal : null) ,
+          (item.taxa4_mensal !== undefined ? item.taxa4_mensal : null) ,
+          (item.taxa5_mensal !== undefined ? item.taxa5_mensal : null) ,
               'Juros+Tax',
                 'Total Parc.',
            'Sal. Dev.'
@@ -182,11 +181,11 @@ export class ParcelasTaxasService {
         let parc = [                                        item.numParcela,
                      'R$ ' + this.helper.numberToCurrency(item.amortizacao),
                            'R$ ' + this.helper.numberToCurrency(item.juros),
-        (!isUndefined(item.taxa1_mensal_val) ? 'R$ ' + this.helper.numberToCurrency(item.taxa1_mensal_val) : null) ,
-        (!isUndefined(item.taxa2_mensal_val) ? 'R$ ' + this.helper.numberToCurrency(item.taxa2_mensal_val) : null) ,
-        (!isUndefined(item.taxa3_mensal_val) ? 'R$ ' + this.helper.numberToCurrency(item.taxa3_mensal_val) : null) ,
-        (!isUndefined(item.taxa4_mensal_val) ? 'R$ ' + this.helper.numberToCurrency(item.taxa4_mensal_val) : null) ,
-        (!isUndefined(item.taxa5_mensal_val) ? 'R$ ' + this.helper.numberToCurrency(item.taxa5_mensal_val) : null) ,
+        (item.taxa1_mensal_val !== undefined ? 'R$ ' + this.helper.numberToCurrency(item.taxa1_mensal_val) : null) ,
+        (item.taxa2_mensal_val !== undefined ? 'R$ ' + this.helper.numberToCurrency(item.taxa2_mensal_val) : null) ,
+        (item.taxa3_mensal_val !== undefined ? 'R$ ' + this.helper.numberToCurrency(item.taxa3_mensal_val) : null) ,
+        (item.taxa4_mensal_val !== undefined ? 'R$ ' + this.helper.numberToCurrency(item.taxa4_mensal_val) : null) ,
+        (item.taxa5_mensal_val !== undefined ? 'R$ ' + this.helper.numberToCurrency(item.taxa5_mensal_val) : null) ,
                         'R$ ' + this.helper.numberToCurrency(item.perdaVal),
                            'R$ ' + this.helper.numberToCurrency(item.total),
                     'R$ ' + this.helper.numberToCurrency(item.saldoDevedor)

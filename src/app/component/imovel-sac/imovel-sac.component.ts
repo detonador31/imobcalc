@@ -16,13 +16,13 @@ export class ImovelSacComponent implements OnInit {
 
   ngOnInit() {}
 
-  fecharModal() {
-    this.modalCtrl.dismiss();
-  }  
-
   direcionar(rota: String) {
     this.router.navigate(['/'+ rota ]);
-    this.fecharModal();
+    this.dismiss();
+  }
+
+  dismiss() {
+    this.modalCtrl.dismiss();
   }
 
 }

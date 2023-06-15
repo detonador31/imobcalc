@@ -3,13 +3,15 @@ import { ModalController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HelperService } from './../services/outros/helper.service';
 // Para armazenar Cookie no aplicativo
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 // Usado para Status de conexão de rede
-import { Plugins, PluginListenerHandle, NetworkStatus } from '@capacitor/core';
+import { Plugins, PluginListenerHandle } from '@capacitor/core';
 import { ImovelPriceComponent } from '../component/imovel-price/imovel-price.component';
+import { Network } from '@capacitor/network';
+import { AdmobService } from '../services/outros/admob.service';
 
-const { Network } = Plugins;
+const { Network2 } = Plugins;
 
 @Component({
   selector: 'app-home',
@@ -18,23 +20,28 @@ const { Network } = Plugins;
 })
 export class HomePage implements OnInit, OnDestroy {
 
+  private readonly listenerHandlers: PluginListenerHandle[] = [];
+  public isLoading = false;  
+
   // tslint:disable: no-string-literal
-  networkStatus: NetworkStatus;
+  networkStatus: any;
   networkListener: PluginListenerHandle;
   status: string;
   statusClass: string;
-  loading: any;  
+  loading: any; 
+  router: Router; 
+  isModalOpen: Boolean = false;
 
   ngOnDestroy() {
     this.networkListener.remove();
   }
 
   constructor(
-    public  router: Router,
     private cookie: CookieService,
     private helper: HelperService,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController       
+    private loadingCtrl: LoadingController,
+    public admobService: AdmobService     
   ) {
     this.statusClass = null;
   }
@@ -43,11 +50,17 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
+    this.admobService.showBottomBanner();
     this.networkListener = Network.addListener('networkStatusChange', status => {
       this.networkStatus = status;
     });
+
     this.getNetworkStatus();
     this.deleteCookies();
+  }
+
+  ionViewWillLeave(){
+    this.admobService.removeBanner();
   }
 
   /**
@@ -57,7 +70,7 @@ export class HomePage implements OnInit, OnDestroy {
    * @version 1.0
    */
   deleteCookies() {
-    this.cookie.remove('PHPSESSID');
+    this.cookie.delete('PHPSESSID');
   }
 
   /**
@@ -105,19 +118,24 @@ export class HomePage implements OnInit, OnDestroy {
    * @param finanData any
    */
    async openSacModal() {
+    // this.isModalOpen = true;
     this.loading = await this.loadingCtrl.create({message: 'Abrindo...'});
     await this.loading.present();
 
     const modal = await this.modalCtrl.create({
       component: ImovelSacComponent,
-      componentProps: {
-      },
-      cssClass: 'sac-modal-css'
+      cssClass: 'transparent-modal',
+      /*       componentProps: {
+            }, */
     });
     this.loading.dismiss();
     await modal.present();
-    const data = await modal.onWillDismiss();
+    // const data = await modal.onWillDismiss(); 
   }  
+
+  async fechaSacModal() {
+    this.isModalOpen = false;
+  }   
 
   /**
    * Abre Modal de Obs no checkOut caso todos os funcionários não sejam atendidos
@@ -134,7 +152,7 @@ export class HomePage implements OnInit, OnDestroy {
       component: ImovelPriceComponent,
       componentProps: {
       },
-      cssClass: 'sac-modal-css'
+      cssClass: 'transparent-modal'
     });
     this.loading.dismiss();
     await modal.present();

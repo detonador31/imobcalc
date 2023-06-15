@@ -14,7 +14,6 @@ import { ConsultaOriginal } from './../../classes/consulta_original';
 import { CidDescri, Cid } from './../../classes/cid';
 import { CidModalComponent } from './../../component/cid-modal/cid-modal.component';
 import { ModalController, AlertController, NavController, Platform, LoadingController } from '@ionic/angular';
-import { isUndefined } from 'util';
 import { HelperService } from './../../services/outros/helper.service';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Consulta, ConsultaArray, ConsultaAnterior } from './../../classes/consulta';
@@ -121,7 +120,7 @@ export class FormConsultaPage implements OnInit {
       await this.fieldsDefaultContent();
       // Carrega as descrições de Cid caso exista
       this.cidDescri = await this.carregaCidDescri(this.cidDescri);
-      if (!isUndefined(this.consulta.id_funcionario)) {
+      if (this.consulta.id_funcionario !== undefined) {
         await this.camposConsultaAnterior();
       } else {
         this.loading.dismiss();
@@ -160,7 +159,7 @@ export class FormConsultaPage implements OnInit {
     let i = 1;
     this.consultCid.forEach(async key => {
       const cid: Cid = await this.entCid.getItemByNumeroCid(this.consulta[key.field]);
-      if (!isUndefined(cid.id)) {
+      if (cid.id !== undefined) {
         const descriField = 'descri_' + i;
         cidsDescri[descriField] = cid.descricao;
       }
@@ -186,7 +185,7 @@ export class FormConsultaPage implements OnInit {
     // Busca o nome do condomínio, caso seja outro não incluído será adicionado o ID
     const empresaId = this.helper.holdAndId(this.consulta.id_empresa, this.consulta.hold_id);
     const empresa = await this.entEmpresa.getItem(empresaId, this.consulta.hold_id);
-    this.consultaAnteriorData.empresa = !isUndefined(empresa.id) ? empresa.razao_social :
+    this.consultaAnteriorData.empresa = empresa.id !== undefined ? empresa.razao_social :
     this.consulta.id_empresa + ' - outro condomínio';
 
     this.consultaAnteriorData.medico =  this.consulta.id_medico.toString();
@@ -372,30 +371,30 @@ export class FormConsultaPage implements OnInit {
    * @version 1.0
    */
   async fieldsDefaultContent() {
-    this.consulta.consulta_queixa = isUndefined(this.consulta.consulta_queixa) ||
+    this.consulta.consulta_queixa = this.consulta.consulta_queixa === undefined ||
     !this.consulta.consulta_queixa ? 'SEM QUEIXA' : this.consulta.consulta_queixa;
 
     this.interrogatorio1.forEach(element => {
-      this.consulta[element.quest] = isUndefined(this.consulta[element.quest]) ||
+      this.consulta[element.quest] = this.consulta[element.quest] === undefined ||
       !this.consulta[element.quest] ? 'nao' : this.consulta[element.quest];
     });
 
     this.interrogatorio2.forEach(element => {
-      this.consulta[element.quest] = isUndefined(this.consulta[element.quest]) ||
+      this.consulta[element.quest] = this.consulta[element.quest] === undefined ||
       !this.consulta[element.quest] ? 'nao' : this.consulta[element.quest];
     });
 
-    this.consulta.consulta_ant_ocup = isUndefined(this.consulta.consulta_ant_ocup) ||
+    this.consulta.consulta_ant_ocup = this.consulta.consulta_ant_ocup === undefined ||
     !this.consulta.consulta_ant_ocup ? 'NDN' : this.consulta.consulta_ant_ocup;
-    this.consulta.consulta_ant_pess = isUndefined(this.consulta.consulta_ant_pess) ||
+    this.consulta.consulta_ant_pess = this.consulta.consulta_ant_pess === undefined ||
     !this.consulta.consulta_ant_pess ? 'NDN' : this.consulta.consulta_ant_pess;
 
     let count = 0;
     this.consultDoenca.forEach(item => {
-      this.consulta[item.fieldPai] = isUndefined(this.consulta[item.fieldPai]) ||
+      this.consulta[item.fieldPai] = this.consulta[item.fieldPai] === undefined ||
       !this.consulta[item.fieldPai] ? false : true;
 
-      this.consulta[item.fieldMae] = isUndefined(this.consulta[item.fieldMae]) ||
+      this.consulta[item.fieldMae] = this.consulta[item.fieldMae] === undefined ||
       !this.consulta[item.fieldMae] ? false : true;
       if (this.consulta[item.fieldPai] || this.consulta[item.fieldMae] ) {
         count ++;
@@ -407,7 +406,7 @@ export class FormConsultaPage implements OnInit {
       this.consulta.consulta_doenca_8 = false;
     }
     this.consultFisico.forEach(element => {
-      this.consulta[element.field] = isUndefined(this.consulta[element.field]) ||
+      this.consulta[element.field] = this.consulta[element.field] === undefined ||
       !this.consulta[element.field] ? 'NDN' : this.consulta[element.field];
     });
   }
@@ -471,10 +470,10 @@ export class FormConsultaPage implements OnInit {
     }
     this.dataResul = await this.helper.getLocaStoragetoObject('cidModal');
     if (((text && text.length >= 3 && tipo === 'descri'
-    && (!this.consulta[field] || isUndefined(this.consulta[field])))
+    && (!this.consulta[field] || this.consulta[field] === undefined))
 
     || (text && text.length >= 2 && tipo === 'numero'
-    && (!this.cidDescri[fieldDescri] || isUndefined(this.cidDescri[fieldDescri]))))
+    && (!this.cidDescri[fieldDescri] || this.cidDescri[fieldDescri] === undefined)))
     ) {
 
       this.timer = setTimeout(async () => {
@@ -566,11 +565,11 @@ export class FormConsultaPage implements OnInit {
    */
   async trataData(consulta: Consulta) {
     this.consultDoenca.forEach(item => {
-      consulta[item.fieldPai] = isUndefined(consulta[item.fieldPai]) ||
+      consulta[item.fieldPai] = consulta[item.fieldPai] === undefined ||
       !consulta[item.fieldPai] ? null : 'p';
-      consulta[item.fieldMae] = isUndefined(consulta[item.fieldPai]) ||
+      consulta[item.fieldMae] = consulta[item.fieldPai] === undefined ||
       !consulta[item.fieldMae] ? null : 'm';
-      consulta.consulta_doenca_8 = isUndefined(consulta.consulta_doenca_8) ||
+      consulta.consulta_doenca_8 = consulta.consulta_doenca_8 === undefined ||
       !consulta.consulta_doenca_8 ? null : 'nd';
     });
     consulta.status = 'nao_enviada';

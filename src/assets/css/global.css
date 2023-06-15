@@ -1,4 +1,35 @@
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
 
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+.transparent-modal {
+    backdrop-filter: blur(5px);
+    --width: 80%;
+    --height: 30%;
+    --background: #0000005c;
+    --background:transparent;
+} 
+
+.modal-grid {
+    color: rgb(90, 90, 90);
+    text-align: center;
+    height:80%;  
+}
+
+.home-grid{
+    color: rgb(105, 104, 104);
+    text-align: center;
+    font-size: medium;  
+}
+    
 
 .button-menu {
     margin-bottom: 20px;
@@ -12,21 +43,21 @@
 .btn-circle {
     margin: 5px;
     background-color: rgb(230, 228, 228);
-    color: rgb(88, 87, 87);
+    color: rgb(105, 105, 105);
     padding: 5px;
-    height: 90px;
-    width: 90px;
+    height: 70px;
+    width: 70px;
     border-radius: 50px;
+}
+
+.btn-modal {
+    height: 80px;
+    width: 80px;
 }
 
 ion-toolbar{
     --min-height:30px!important;
   }
-
-.title{
-    color: #414141;
-}
-
 
 .toast{
     font-size: larger;
@@ -34,12 +65,15 @@ ion-toolbar{
 
 
 .header-row {
+    position: fixed;
+    padding: 3px;
+    width: 100%;
+    margin: 0;
     border-bottom: 2px solid #000;
     border-top: 2px solid #000;
-    padding: 3px;
     text-align: center;
     color: #ffffff;
-    font-size: large;
+    font-size: small;
     background-color: #000;
 }
 
@@ -99,16 +133,15 @@ ion-toolbar{
 
 /* Modelagem da Ficha Clínica */
 .colHeader {
-    border-bottom: 2px solid #e1dddd;
     padding-top: 10px;
     padding-bottom: 10px;
-    color: #2B2A2A;
+    color: #6e6c6c;
     font-family: Arial, Helvetica, sans-serif;
     text-align: right;
-    font-size: large;
+    font-size: medium;
     font-weight: bolder;
-    vertical-align: middle;
-    background-color: #f1efef;    
+    vertical-align: middle;  
+    border-bottom: #f0f0f0 1px solid;      
 }
 
 .colHeaderCenter {
@@ -125,7 +158,6 @@ ion-toolbar{
 }
 
 .colContent {
-    border-bottom: 2px solid #e1dddd;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: left;
@@ -133,7 +165,7 @@ ion-toolbar{
     color: #605C5C;
     font-size: large;
     vertical-align: middle;
-    background-color: #ffffff;    
+    border-bottom: #f0f0f0 1px solid;   
 }
 
 .colContentCenter {
@@ -149,35 +181,24 @@ ion-toolbar{
 }
 
 .colTopHeader {
-    border-top: 2px solid #e1dddd;
-    border-bottom: 2px solid #e1dddd;
     font-family: Arial, Helvetica, sans-serif;
-    color: #2B2A2A;
+    color: #8a8a8a;
     text-align: center;
     font-size: large;
     font-weight: bolder;
-    background-color: #f1efef;   
+    background-color: #f0f0f0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0; 
 }
 
-.dataFrame {
-    border: 1px solid #d2d2d8;
-    margin-top: 5px;
-    padding: 5px;
-    background-color: #ffffff;  
+.dataFrame { 
 }
 
 .ion-custom-icon {
     font-size: x-large;
     padding: 0;
     color: #e2d55c;
-}
-
-.labelTop {
-    font-style:bold;
-    font-family: "Segoe UI";
-    font-size: larger;
-    color: #161616;
-    padding: 10px;
 }
 
 .textArea {
@@ -207,35 +228,11 @@ ion-toolbar{
     border-radius: 0.3em  
 }
 
-.inputQuest {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: x-large;
-    height: 50px;
-    margin: auto;
-    border: 1px solid #2674ce;
-    padding-bottom: 10px;
-    width: 97%;
-    background-color: #ffffff;
-    border: #999999 solid 1px;
-    border-radius: 0.3em 
-}
-
 .inputTaxas {
     font-size: small;
 }
 
-.inputQuestInativa {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: x-large;
-    height: 50px;
-    margin: auto;
-    border: 1px solid #2674ce;
-    padding-bottom: 10px;
-    width: 97%;
-    background-color: #dad6d6;
-    border: #999999 solid 1px;
-    border-radius: 0.3em 
-}
+
 
 .input_taxas_inativas {
     font-size: small;
@@ -249,10 +246,6 @@ ion-radio-group {
     width: 35px;
     height: 35px;
     margin-top: 20px;
-}
-
-.radioLabelH {
-    color: #535151;
 }
 
 .radioQuest ion-label {
@@ -329,23 +322,23 @@ ion-radio-group {
     border: 1px solid #9090b8;
 }
 
-.finan-detalhe-modal-css .modal-wrapper {
-    width: 100%;
-    height: 90%;
-    border: 1px solid #9090b8;
-}
+.finan-detalhe-modal-css {
+    backdrop-filter: blur(5px);
+    --width: 90%;
+    --height: 90%;
+    --background: #0000005c;
+    --background:transparent;
+    --border-radius: 0.3em 
+} 
 
-.banco-taxas-modal-css .modal-wrapper {
-    width: 90%;
-    height: 90%;
-    border: 1px solid #9090b8;
-}
+.banco-taxas-modal-css {
+    backdrop-filter: blur(5px);
+    --width: 100%;
+    --height: 90%;
 
-.sac-modal-css .modal-wrapper {
-    width: 90%;
-    height: 20%;
-    border: none;
-    border-radius: 30px;
+    --background: #0000005c;
+    --background:transparent;
+    --border-radius: 0.3em 
 }
 
 .checkout-modal-css form{
@@ -400,13 +393,14 @@ ion-radio-group {
 }
 
 .finanCheck ion-checkbox{
-    --border-color: #999999;
+    --border-color: #999999;    
     --border-width: 1px;
 }
 
 .finanSelect ion-select {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: x-large;
+    font-size: large;
+    color: #575757;
     height: 50px;
     margin: auto;
     border: 1px solid #2674ce;
@@ -416,3 +410,41 @@ ion-radio-group {
     border: #999999 solid 1px;
     border-radius: 0.3em  
 }
+
+.inputQuest {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    color: #5f5f5f;
+    height: 50px;
+    margin: auto;
+    border: 1px solid #2674ce;
+    padding-bottom: 5px;
+    width: 97%;
+    background-color: #ffffff;
+    border: #999999 solid 1px;
+    border-radius: 0.3em 
+}
+
+.inputQuestInativa {
+    background-color: #d6d5d5;
+    color: #8a8888;
+}
+
+.labelTop {
+    font-style:bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    color: #8d8d8d; 
+    padding: 10px;
+}
+
+.title{
+    color: #8d8d8d;
+    margin-left: 10px;
+    font-size: medium ;
+}
+
+.radioLabelH {
+    color: #8d8d8d;
+}
+

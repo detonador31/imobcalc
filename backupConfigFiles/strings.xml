@@ -4,5 +4,6 @@
     <string name="title_activity_main">finan-app</string>
     <string name="package_name">com.finan.finanapp</string>
     <string name="custom_url_scheme">com.finan.finanapp</string>
-    <string name="admob_app_id">[APP_ID]</string>
+    <string name="admob_app_id">ca-app-pub-7396406519933471~4948701046</string> 
 </resources>
+

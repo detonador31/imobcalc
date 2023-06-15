@@ -3,7 +3,6 @@ import { EntBancoTaxasService } from 'src/app/services/entity/ent-banco_taxas';
 import { BancoTaxas } from 'src/app/classes/banco_taxas';
 import { HelperService } from 'src/app/services/outros/helper.service';
 import { ModalController } from '@ionic/angular';
-import { isUndefined } from 'util';
 import { DatePipe } from '@angular/common';
 import { ParcelasTaxasService } from 'src/app/services/outros/parcelas-taxas.service';
 
@@ -27,7 +26,7 @@ export class BancoTaxasFormComponent implements OnInit {
 
   async ngOnInit() {
     this.bancoTaxa = this.data ? this.data : new BancoTaxas();
-    if(!isUndefined(this.bancoTaxa.id)) {
+    if(this.bancoTaxa.id !== undefined) {
       this.title = "Editar Definição Bancaria";
     }
     this.bancoTaxa = this.bancoTaxa.id === undefined ? this.bancoTaxa :

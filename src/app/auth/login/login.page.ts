@@ -8,7 +8,6 @@ import { Usuario } from './../../classes/usuario';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { LoadingController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { isUndefined } from 'util';
 import { LastLogin } from 'src/app/classes/last-login';
 
 @Component({
@@ -97,8 +96,8 @@ export class LoginPage implements OnInit {
       async token => {
         retorno = token;
         retorno.loginStatus = 'fail';
-        if (!isUndefined(retorno.error) && !retorno.error) {
-          if (!isUndefined(retorno.idMedico) && retorno.idMedico !== '-') {
+        if (retorno.error !== undefined && !retorno.error) {
+          if (retorno.idMedico !== undefined && retorno.idMedico !== '-') {
             this.userData = await this.helper.getLocaStoragetoObject('userData');
             retorno.loginStatus  = sistema === this.holdVila ? 'vilaOk' : 'fail';
             // LoginStatus 'Success' caso tenha logado em Vila
@@ -157,7 +156,7 @@ export class LoginPage implements OnInit {
       lastLogin.id_medico_tcmed = data.idMedicoTcmed;
       lastLogin.id_medico_vila = data.idMedicoVila;
       // Verifica se o status de Login foi success, ou seja, tanto em vila como em tcmed
-      if (!isUndefined(this.userData.loginStatus) && this.userData.loginStatus === 'success') {
+      if (this.userData.loginStatus !== undefined && this.userData.loginStatus === 'success') {
         await this.entLastLogin.save(lastLogin);
         this.loading.dismiss();
         await this.helper.toast('Sucesso', 'Logado com sucesso', 'success', 'bottom', 3000);

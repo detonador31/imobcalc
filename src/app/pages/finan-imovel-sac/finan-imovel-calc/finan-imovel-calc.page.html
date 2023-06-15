@@ -15,11 +15,7 @@
 
 <ion-content>
   <div class="dataFrame">
-    <ion-row>
-      <ion-col class='colTopHeader'>
-          <h2>Dados Preenchidos</h2>
-      </ion-col>
-    </ion-row>
+    <p class='colTopHeader'>Dados Preenchidos</p>
     <ion-row>
       <ion-col size="6"  class='colHeader'>
         Salário Mensal
@@ -141,27 +137,7 @@
   </div>
 
   <div class="dataFrame">
-    <ion-row>
-      <ion-col class='colTopHeader'>
-        <h2>Calculos</h2>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6"  class='colHeader'>
-        Total Imovel
-      </ion-col>
-      <ion-col class='colContent'>
-        {{finan.total_somas | currency:'BRL': 'R$'}}
-      </ion-col>
-    </ion-row>    
-    <ion-row>
-      <ion-col size="6"  class='colHeader'>
-        Saldo Devedor
-      </ion-col>
-      <ion-col class='colContent'>
-        {{ finan.saldo_devedor_val | currency:'BRL': 'R$'}}
-      </ion-col>
-    </ion-row>    
+    <p class='colTopHeader'>Calculos</p>  
     <ion-row>
       <ion-col size="6"  class='colHeader'>
         Primeira Parcela
@@ -188,7 +164,23 @@
     </ion-row> 
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Juros no periodo
+        Saldo Devedor
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.saldo_devedor_val | currency:'BRL': 'R$'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        ITBI/Escr. + Aval. G.
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finan.itbi_escritura_val + finan.avaliacao_garantia_val| currency:'BRL': 'R$'}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Soma dos Juros
       </ion-col>
       <ion-col class='colContent'>
         {{ finan.total_juros_somados_val | currency:'BRL': 'R$'}}
@@ -196,7 +188,7 @@
     </ion-row> 
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Total Taxas
+        Soma das Taxas
       </ion-col>
       <ion-col class='colContent'>
         {{ finan.total_taxas_somados_val | currency:'BRL': 'R$'}}
@@ -204,7 +196,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Total Juros + Taxas
+        Soma Juros + Taxas
       </ion-col>
       <ion-col class='colContent'>
         {{ finan.total_perdas_somados_val | currency:'BRL': 'R$'}}
@@ -212,7 +204,7 @@
     </ion-row> 
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Prestações Somadas
+        Soma das Prestações
       </ion-col>
       <ion-col class='colContent'>
         {{ finan.total_imovel_parcelado_val | currency:'BRL': 'R$'}}
@@ -220,12 +212,10 @@
     </ion-row>  
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        TOTAL PREVISTO
+        Total Pago no Período
       </ion-col>
       <ion-col class='colContent'>
-        {{ (finan.itbi_escritura_val ) <= 0 ? (finan.total_imovel_val * 0.05) +
-          finan.total_imovel_parcelado_val + finan.entrada_val :
-          finan.total_imovel_parcelado_val + finan.entrada_val| currency:'BRL': 'R$'}}
+        {{ finan.total_imovel_parcelado_val + finan.entrada_val + finan.itbi_escritura_val + finan.avaliacao_garantia_val| currency:'BRL': 'R$'}}
       </ion-col>    
     </ion-row> 
 
@@ -241,6 +231,9 @@
         <ion-button (click)="salvarCalc(finan)" size="medium" color="success" expand="block">
           <ion-icon name="save-outline" slot="start"></ion-icon>Salvar Cálculo</ion-button>
       </div>               
+      <br />
+      <br />
+      <br />
       <br />
   </div>
 </ion-content>

@@ -1,3 +1,4 @@
+import { AdmobService } from './../../../services/outros/admob.service';
 import { ActivatedRoute } from '@angular/router';
 import { EntFinanImovelService } from './../../../services/entity/ent-finan_imovel';
 import { Component, OnInit } from '@angular/core';
@@ -29,7 +30,8 @@ export class FinanImovelCalcPage implements OnInit {
     private geraParcelas: ParcelasTaxasService,
     private loadingCtrl: LoadingController,
     private EntfinanImovel: EntFinanImovelService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private admobSrv: AdmobService
   ) {
     this.platform.backButton.subscribeWithPriority(10000, () => {
       this.backPage();
@@ -139,16 +141,30 @@ export class FinanImovelCalcPage implements OnInit {
    * @param parcelas: any
    */   
   async gerarPdf(finan: FinanImovel, parcelas: any) {
+    await this.admobSrv.prepareInterstitial();
+    setTimeout(async () => {
+      await this.gerarPdfAfterAd(finan, parcelas)
+    }, 3000);
+  } 
+
+  /**
+   * Gera PDF com detalhes sobre o financiamento e parcelas
+   * author Silvio Watakabe <silvio@tcmed.com.br> 
+   * @since 31-10-2020
+   * @version 1.0
+   * @param finan: FinanImovel
+   * @param parcelas: any
+   */   
+   async gerarPdfAfterAd(finan: FinanImovel, parcelas: any) {
     this.loading = await this.loadingCtrl.create({message: 'Gerando PDF...'});
     await this.loading.present();
-
     const data:any = [];
     data['finan'] = finan;
     data['parcelas'] = parcelas;
     await this.geraPDF.gerarPdf(data, 'finanImovel');
 
     this.loading.dismiss();
-  }  
+  }   
 
   /**
    * Salva dados preenchidos para novo calculo
@@ -159,13 +175,28 @@ export class FinanImovelCalcPage implements OnInit {
    * @return boolean
    */   
    async salvarCalc(finan: FinanImovel) {
-    this.loading = await this.loadingCtrl.create({message: 'Salvando...'});
-    await this.loading.present();
-    await this.EntfinanImovel.save(finan);
-    await this.calculosIniciais();
-    await this.helper.toast('Sucesso', 'Consulta Salva com sucesso!', 'success', 'middle', 3000);
-    await this.loading.dismiss();
-  }    
+    await this.admobSrv.prepareReward();
+    setTimeout(async () => {
+      await this.salvarCalcAfterAd(finan)
+    }, 5000);
+  }  
+  
+  /**
+  * Salva dados preenchidos para novo calculo
+  * author Silvio Watakabe <silvio@tcmed.com.br> 
+  * @since 12-12-2021
+  * @version 1.0
+  * @param finan: FinanImovel
+  * @return boolean
+  */   
+  async salvarCalcAfterAd(finan) {
+   this.loading = await this.loadingCtrl.create({message: 'Salvando...'});
+   await this.loading.present();
+   await this.EntfinanImovel.save(finan);
+   await this.calculosIniciais();
+   await this.helper.toast('Sucesso', 'Calculo Salvo com sucesso!', 'success', 'middle', 10000);
+   await this.loading.dismiss();
+ }   
 
   /**
    * Salva dados preenchidos para novo calculo
@@ -188,7 +219,6 @@ export class FinanImovelCalcPage implements OnInit {
    * @param finan: FinanImovel
    */   
    async stringToNumber(finan: FinanImovel) {
-
     finan.total_imovel_val    = parseInt(finan.total_imovel_val);
     finan.itbi_escritura_val  = parseInt(finan.itbi_escritura_val)
     return finan;

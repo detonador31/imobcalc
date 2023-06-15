@@ -4,7 +4,6 @@ import { BlocoItem } from './../../classes/bloco_item';
 import { EntFuncionarioService } from './../../services/entity/ent-funcionario.service';
 import { NavController, Platform, AlertController, ModalController } from '@ionic/angular';
 import { EntConsultaEnviarService } from './../../services/entity/ent-consulta_enviar.service';
-import { isUndefined } from 'util';
 import { hold } from './../../../environments/environment';
 import { EntLastLoginService } from './../../services/entity/ent-last_login.service';
 import { Bloco } from './../../classes/bloco';
@@ -90,7 +89,7 @@ export class ListBlocoItemPage implements OnInit {
     // Se preenche o cabeçalho caso hold seja vila
     if (sistema === this.holdVila) {
       this.bloco = await this.entBloco.getItemByDate(date, id_medico, sistema);
-      if (!isUndefined(this.bloco.id)) {
+      if (this.bloco.id !== undefined) {
         this.blocoTitle.dateAgendamento = this.helper.dateBrToUsOrUsToBr(this.bloco.agendado_em, 'us');
         this.blocoTitle.numLista        = this.bloco.referencia;
         this.blocoTitle.createdBy       = this.bloco.created_by_nome;
@@ -98,15 +97,15 @@ export class ListBlocoItemPage implements OnInit {
     } else {
       this.blocoTcmed = await this.entBloco.getItemByDate(date, id_medico, sistema);
       // Se bloco vila em Branco, preenche os títulos com dados do blocoTcmed
-      if (!this.blocoTitle.dateAgendamento && !isUndefined(this.blocoTcmed.id)) {
+      if (!this.blocoTitle.dateAgendamento && this.blocoTcmed.id !== undefined) {
         this.blocoTitle.dateAgendamento = this.helper.dateBrToUsOrUsToBr(this.bloco.agendado_em, 'us');
         this.blocoTitle.numLista        = this.blocoTcmed.referencia;
         this.blocoTitle.createdBy       = this.blocoTcmed.created_by_nome;
       }
     }
     // Impede que execute Busca de BlocoItens caso não exista bloco vila e nem Tcmed
-    if ((!isUndefined(this.bloco.id) && sistema === this.holdVila) ||
-    (!isUndefined(this.blocoTcmed.id) && sistema === this.holdTcmed)) {
+    if ((this.bloco.id !== undefined && sistema === this.holdVila) ||
+    (this.blocoTcmed.id !== undefined && sistema === this.holdTcmed)) {
       if (sistema === this.holdVila) {
         this.bloco.id = this.helper.removeHoldFromId(this.bloco.id);
         this.getBlocoItens(this.bloco.id, sistema);
@@ -141,11 +140,11 @@ export class ListBlocoItemPage implements OnInit {
     let index  = 0;
     this.blocoItens.forEach(async item => {
       let empresa: any;
-      if (!isUndefined(item.empresa_id && !item.empresaNome)) {
+      if (item.empresa_id !== undefined && !item.empresaNome) {
         const holdEmp = item.hold === this.holdVila ? this.holdVila : this.holdTcmed;
         const empresaId = this.helper.holdAndId(item.empresa_id, holdEmp);
         empresa = await this.empresa.getItem(empresaId, holdEmp);
-        if (isUndefined(empresa.id)) {
+        if (empresa.id !== undefined) {
           this.blocoSemEmp ++;
           this.blocoItens.splice(index, 1);
         } else {
@@ -180,7 +179,7 @@ export class ListBlocoItemPage implements OnInit {
    */
   async checkIn(blocoItem: any, listar: boolean) {
     const semCheckOut = await this.checkInSemCheckOut(this.blocoItens);
-    if (!blocoItem.check_in && !isUndefined(blocoItem.empresaNome) && !semCheckOut) {
+    if (!blocoItem.check_in && blocoItem.empresaNome !== undefined && !semCheckOut) {
       const alert = await this.alertCrt.create({
         header: 'Check-IN?',
         message:  `Deseja Fazer Check-IN no ` + blocoItem.empresaNome,
@@ -204,7 +203,7 @@ export class ListBlocoItemPage implements OnInit {
         await this.helper.toast('Atenção', 'Check-Out Pendente na lista, faça o Check-Out prosseguir com novo Check-In',
         'danger', 'middle', 3000);
       } else {
-        if (isUndefined(blocoItem.empresaNome)) {
+        if (blocoItem.empresaNome === undefined) {
           await this.helper.toast('Atenção', 'BlocoItem de empresa Inativada!', 'warning', 'middle', 3000);
         } else {
           this.router.navigate(['/list-funcionarios/list', blocoItem.empresaCodigo]);

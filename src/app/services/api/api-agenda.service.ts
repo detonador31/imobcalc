@@ -1,4 +1,3 @@
-import { Consulta } from './../../classes/consulta';
 import { HelperService } from './../outros/helper.service';
 import { Injectable } from '@angular/core';
 // Importa configurações personalizados do projeto, aplicável em qualquer serviço
@@ -82,9 +81,15 @@ export class ApiAgendaService {
       .pipe(retry(10), catchError(this.helper.handleError));
   }
 
-  // Sincroniza Cids na primeira vez que usuário loga
+  // Sincroniza Taxas de banco na primeira vez que usuário loga
   jsonBancos(){
     const baseUrl = 'assets/json/banco-taxas.json';
+    return this.http.get<string>(baseUrl);
+  }
+
+  // Sincroniza Taxas de banco na primeira vez que usuário loga
+  jsonUfTaxas(){
+    const baseUrl = 'assets/json/uf-taxas.json';
     return this.http.get<string>(baseUrl);
   }  
 

@@ -1,8 +1,8 @@
 import { throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
-import { BrowserStack } from 'protractor/built/driverProviders';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
+import { SQLitePorter } from '@awesome-cordova-plugins/sqlite-porter/ngx';
+// import { BrowserStack } from 'protractor/built/driverProviders';
 
 @Injectable({
   providedIn: 'root'
@@ -475,10 +475,12 @@ export class DatabaseService {
     ');');
 
     // Cria a tabela FinanTable caso não exista
-    const finanTable = await this.finanImoveisTable();
+    const finanTable      = await this.finanImoveisTable();
     sqls.push(finanTable);
     const finanTablePrice = await this.finanImoveisPriceTable();
     sqls.push(finanTablePrice);
+    const ufTaxasTable    = await this.ufTaxasTable();
+    sqls.push(ufTaxasTable);
 
     return sqls.join('\n');
   }
@@ -595,7 +597,7 @@ export class DatabaseService {
       {campo: 'qtd_meses_restantes',        type: 'int',     size: null},
       {campo: 'primeira_parcela',           type: 'int',     size: null},
       {campo: 'ultima_parcela',             type: 'int',     size: null},
-      {campo: 'created_at Date',            type: 'date',    size: null},
+      {campo: 'created_at',                 type: 'date',    size: null},
       {campo: 'updated_at',                 type: 'date',    size: null},      
     ];
 
@@ -663,7 +665,7 @@ export class DatabaseService {
       {campo: 'amortizacao_futura_val',     type: 'int',     size: null},
       {campo: 'qtd_meses_amortizacao',      type: 'int',     size: null},
       {campo: 'qtd_meses_restantes',        type: 'int',     size: null},
-      {campo: 'created_at Date',            type: 'date',    size: null},
+      {campo: 'created_at',                 type: 'date',    size: null},
       {campo: 'updated_at',                 type: 'date',    size: null},      
     ];
 
@@ -672,5 +674,23 @@ export class DatabaseService {
     return table;
 
   }  
+
+  async ufTaxasTable() {
+    const tableFields = [
+      {campo: 'id',                         type: 'primary', size: null},
+      {campo: 'uf',                         type: 'var',     size: 5},      
+      {campo: 'itbi',                       type: 'int',     size: null},
+      {campo: 'cartorio',                   type: 'int',     size: null},
+      {campo: 'created_at',                 type: 'date',    size: null},
+      {campo: 'updated_at',                 type: 'date',    size: null},      
+    ];
+
+    const table = await this.createTable(tableFields, 'uf_taxas');
+    
+    return table;
+
+  }  
+
+
 
 }

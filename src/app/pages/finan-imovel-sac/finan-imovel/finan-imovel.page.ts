@@ -1,10 +1,11 @@
+import { PopUpComponent } from './../../../component/pop-up/pop-up.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/services/outros/helper.service';
 import { FinanImovel } from '../../../classes/finan_imovel';
 import { EntBancoTaxasService } from 'src/app/services/entity/ent-banco_taxas';
 import { BancoTaxas } from 'src/app/classes/banco_taxas';
-import { LoadingController, Platform, NavController } from '@ionic/angular';
+import { LoadingController, Platform, NavController, ModalController } from '@ionic/angular';
 import { ParcelasTaxasService } from 'src/app/services/outros/parcelas-taxas.service';
 
 @Component({
@@ -26,7 +27,8 @@ export class FinanImovelPage implements OnInit {
     private loadingCtrl: LoadingController,
     private taxasParcelas: ParcelasTaxasService,
     private platform: Platform,
-    private navCtr: NavController,    
+    private navCtr: NavController,
+    private modalCtrl: ModalController,       
   ) {  
     this.platform.backButton.subscribeWithPriority(10000, () => {
       this.backPage();
@@ -42,6 +44,25 @@ export class FinanImovelPage implements OnInit {
     this.loading.dismiss();
     // this.ufs = this.jsonsService.uf;
   }
+
+  /**
+   * Carrega os parametros de bancos salvos para o select
+   * author Silvio Watakabe <silvio@tcmed.com.br> 
+   * @since 01-11-2020
+   * @version 1.0
+   */   
+  async alertPopUp() {
+    if(this.finanImovel.primeira_parcela > this.finanImovel.salario_parcela_val) {
+      const modal = await this.modalCtrl.create({
+        component: PopUpComponent,
+        componentProps: {
+          message: 'Atenção! Valor da primeira parcela acima do Limite com base no salário'
+        },
+        cssClass: 'finan-detalhe-modal-css'
+      });
+      await modal.present();
+    }
+  }   
 
   /**
    * Carrega os parametros de bancos salvos para o select

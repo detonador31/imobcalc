@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+//import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
+import { BrowserModule } from '@angular/platform-browser';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 // Serviço para armazenar cookie
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { CookieService } from 'ngx-cookie-service';
 
 // HttpClientModule necessário para funcionar conexão com API rest
 import { HttpClientModule } from '@angular/common/http';
@@ -18,8 +17,8 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/File/ngx';
 
 // Dependências para o SQlite
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { SQLitePorter } from '@awesome-cordova-plugins/sqlite-porter/ngx';
 
 // Serviço para mascaras para inputs diversas
 import { BrMaskerModule } from 'br-mask';
@@ -40,16 +39,17 @@ registerLocaleData(localePt, 'pt');
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    // Conexão com API rest
     HttpClientModule
   ],
   providers: [
+    RouterModule,
+    AppRoutingModule,    
     CookieService,
+    HttpClientModule,
     SQLite,
     SQLitePorter,
     BrMaskerModule,
-    StatusBar,
-    SplashScreen,
+
     File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     FileOpener,

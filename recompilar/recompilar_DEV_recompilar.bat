@@ -18,6 +18,9 @@ cd\projetos\finan-app\recompilar\scripts
 CALL cap_copy.bat
 
 cd\projetos\finan-app\recompilar\scripts
+CALL copy_android_files.bat
+
+cd\projetos\finan-app\recompilar\scripts
 CALL ionic_capacitor_run
 
 echo Projeto recompilado

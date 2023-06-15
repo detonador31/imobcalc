@@ -24,6 +24,11 @@
       Saldo Devedor
     </ion-col>
   </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      &nbsp;
+    </ion-col>      
+  </ion-row>          
   <ion-row  *ngFor="let item of parcelas"  class="data-row" >
     <ion-col size="2" class="data-col-medium data-col-smaller ">
       {{item.numParcela}}
@@ -37,5 +42,5 @@
     <ion-col size="4" class="data-col-medium data-col-smaller ">
       {{item.saldoDevedor | currency: 'BRL' : 'R$'}}
     </ion-col>
-  </ion-row>
+  </ion-row> 
 </ion-content>

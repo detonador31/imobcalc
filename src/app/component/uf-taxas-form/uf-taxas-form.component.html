@@ -1,0 +1,76 @@
+<ion-header>
+  <!-- Barra do Header com cor definida -->
+  <ion-toolbar color="secondary">
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons size="large" slot="end">
+      <ion-button (click)="fecharModal()">Close</ion-button>
+    </ion-buttons>
+    <!-- Título -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="ufTaxa.id != undefined">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-row>
+          <ion-col size="7">
+            {{ ufTaxa.id === undefined ? "Nova Definição Bancaria" : 'Última Atualização'}}
+          </ion-col>
+          <ion-col size="5" style="text-align: center;">
+            {{ !ufTaxa.updated_at ? (ufTaxa.created_at | date: "dd/MM/yyyy") :
+             (ufTaxa.updated_at | date: "dd/MM/yyyy")}}
+          </ion-col>
+        </ion-row>        
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <form (ngSubmit)="salvar(ufTaxa)">
+
+    <div class="dataFrame">
+
+      <ion-row size="12">
+        <h3 class="title">Campos obrigatórios (*)</h3>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-input name="ufTaxa_uf"  class="inputQuest" type="text" placeholder="UF (*)"
+            [(ngModel)]="ufTaxa.uf" clearInput></ion-input>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">ITBI % (*)</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-input name="ufTaxa_itbi"  class="inputQuest" [brmasker]="{money: true}" type="tel" placeholder="%"
+            [(ngModel)]="ufTaxa.itbi" clearInput></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="labelTop">Escritura % (*)</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-input name="ufTaxa_cartorio"  class="inputQuest" [brmasker]="{money: true}" type="tel" placeholder="%"
+            [(ngModel)]="ufTaxa.cartorio" clearInput></ion-input>
+        </ion-col>
+      </ion-row>    
+      <ion-row class="borda"></ion-row>       
+
+      <br />
+      <div class="ion-margin-vertical">
+        <ion-button type="submit" size="large" color="secondary" expand="block">Salvar</ion-button>
+      </div>          
+      <br />
+      <br />
+      <br />
+    </div>    
+  </form>  
+</ion-content>
+

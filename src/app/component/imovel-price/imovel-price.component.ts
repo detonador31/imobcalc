@@ -16,13 +16,13 @@ export class ImovelPriceComponent implements OnInit {
 
   ngOnInit() {}
 
-  fecharModal() {
+  dismiss() {
     this.modalCtrl.dismiss();
   }  
 
   direcionar(rota: String) {
     this.router.navigate(['/'+ rota ]);
-    this.fecharModal();
+    this.dismiss();
   }
 
 

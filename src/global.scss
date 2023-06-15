@@ -32,3 +32,7 @@
 @import '~assets/styles/ngx-datatable/_material.css';
 @import '~assets/styles/ngx-datatable/_bootstrap.css';
 @import '~assets/styles/ngx-datatable/_icons.css';
+
+body {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }

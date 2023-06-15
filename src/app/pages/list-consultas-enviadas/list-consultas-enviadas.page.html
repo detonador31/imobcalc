@@ -28,7 +28,7 @@
       Resul.
     </ion-col>
   </ion-row>
-  <ion-row class="data-row" *ngFor="let item of consultas" (click) = "mensagem(item.id)">
+  <ion-row class="data-row" *ngFor="let item of consultas" (click) = "mensagem()">
     <ion-col size="1" class="data-col-medium">
       {{item.id}}
     </ion-col>    

@@ -2,8 +2,10 @@ import { DatabaseService } from './services/entity/database.service';
 import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { AdMob, AdMobInitializationOptions } from '@capacitor-community/admob';
+
 
 @Component({
   selector: 'app-root',
@@ -41,16 +43,15 @@ export class AppComponent implements OnInit {
       icon: 'cog'
     },
     {
-      title: 'Nova Página Inicial',
-      url: 'inicial',
-      icon: 'business' 
+      title: 'UF Taxas',
+      url: 'uf-taxas',
+      icon: 'bar-chart' 
     }               
   ];
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
+    // private statusBar: StatusBar,
     private dbProvider: DatabaseService,
   ) {
     this.initializeApp();
@@ -58,14 +59,19 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-      this.dbProvider.openDatabase();
-/*       AdMob.initialize({
+      StatusBar.setStyle({ style: Style.Default });
+      SplashScreen.hide();
+      this.dbProvider.openDatabase();  
+
+      /**
+       * initialize() require after platform.ready();
+       */
+       AdMob.initialize({
         requestTrackingAuthorization: true,
-        testingDevices: ['2077ef9a63d2b398840261c8221a0c9b'],
+        testingDevices: ['ca-app-pub-7396406519933471~4948701046'],
         initializeForTesting: true,
-      });   */    
+      });   
+
     });
   }
 

@@ -1,3 +1,4 @@
+import { AdmobService } from './../../../services/outros/admob.service';
 import { EntFinanImovelPriceService } from './../../../services/entity/ent-finan_imovel_price';
 import { ParcelasTaxasPriceService } from './../../../services/outros/parcelas-taxas-price.service';
 import { FinanImovelPrice } from 'src/app/classes/finan_imovel_price';
@@ -30,7 +31,8 @@ export class PriceCalcPage implements OnInit {
     private geraParcelas: ParcelasTaxasPriceService,
     private loadingCtrl: LoadingController,
     private EntfinanImovelPrice: EntFinanImovelPriceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private admobSrv: AdmobService
   ) {
     this.platform.backButton.subscribeWithPriority(10000, () => {
       this.backPage();
@@ -98,7 +100,7 @@ export class PriceCalcPage implements OnInit {
    * @version 1.0
    * @param finan: FinanImovel
    */   
-  async exibirParcelas(finan: FinanImovel) {
+  async exibirParcelas(finan: any) {
     let data: any[] = []
     data['finan'] = finan;
     data['parcelas'] = this.parcelas;
@@ -133,7 +135,7 @@ export class PriceCalcPage implements OnInit {
   }
 
   /**
-   * Gera PDF com detalhes sobre o financiamento e parcelas
+   * Exive ad antes de gerar o PDF
    * author Silvio Watakabe <silvio@tcmed.com.br> 
    * @since 31-10-2020
    * @version 1.0
@@ -141,6 +143,21 @@ export class PriceCalcPage implements OnInit {
    * @param parcelas: any
    */   
   async gerarPdf(finan: FinanImovelPrice, parcelas: any) {
+    await this.admobSrv.prepareInterstitial();
+    setTimeout(async () => {
+      await this.gerarPdfAfterAd(finan, parcelas)
+    }, 3000);
+  }  
+
+  /**
+   * Gera PDF com detalhes sobre o financiamento e parcelas
+   * author Silvio Watakabe <silvio@tcmed.com.br> 
+   * @since 31-10-2020
+   * @version 1.0
+   * @param finan: FinanImovel
+   * @param parcelas: any
+   */   
+   async gerarPdfAfterAd(finan: FinanImovelPrice, parcelas: any) {
     this.loading = await this.loadingCtrl.create({message: 'Gerando PDF...'});
     await this.loading.present();
 
@@ -161,11 +178,26 @@ export class PriceCalcPage implements OnInit {
    * @return boolean
    */   
    async salvarCalc(finan: FinanImovelPrice) {
+    await this.admobSrv.prepareReward();
+    setTimeout(async () => {
+      await this.salvarCalcAfterAd(finan)
+    }, 5000);
+  }    
+
+  /**
+   * Salva dados preenchidos para novo calculo
+   * author Silvio Watakabe <silvio@tcmed.com.br> 
+   * @since 12-12-2021
+   * @version 1.0
+   * @param finan: FinanImovel
+   * @return boolean
+   */   
+   async salvarCalcAfterAd(finan: FinanImovelPrice) {
     this.loading = await this.loadingCtrl.create({message: 'Salvando...'});
     await this.loading.present();
     await this.EntfinanImovelPrice.save(finan);
     await this.calculosIniciais();
-    await this.helper.toast('Sucesso', 'Consulta Salva com sucesso!', 'success', 'middle', 3000);
+    await this.helper.toast('Sucesso', 'Calculo Salvo com sucesso!', 'success', 'middle', 10000);
     await this.loading.dismiss();
   }    
 

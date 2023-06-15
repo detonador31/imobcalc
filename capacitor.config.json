@@ -1,6 +1,6 @@
 {
-  "appId": "com.tcmed.tcmedapp",
-  "appName": "tcmed-app",
+  "appId": "com.finan.finanapp",
+  "appName": "finan-app",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

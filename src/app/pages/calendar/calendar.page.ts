@@ -1,11 +1,9 @@
-import { ListBlocoEmpresasComponent } from './../../component/list-bloco-empresas/list-bloco-empresas.component';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 // Importa CalendarComponent do ionic2-calendar
-import { CalendarComponent } from 'ionic2-calendar/calendar';
+import { CalendarComponent } from 'ionic2-calendar';
 import { AlertController, ModalController, NavController, Platform } from '@ionic/angular';
-import { formatDate } from '@angular/common';
 // Redirecionamento e captura de ids e valores em URLs
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 // import { CalendarComponentOptions } from 'ion2-calendar';
 
 @Component({

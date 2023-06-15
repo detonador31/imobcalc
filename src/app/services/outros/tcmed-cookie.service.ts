@@ -1,6 +1,6 @@
 import { hold } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // Faz tratamento de erros
@@ -30,7 +30,7 @@ export class TcmedCookieService {
     this.setCookieFunction(baseUrl, '').subscribe(
       (response) => {
         this.coki = response;
-        this.cookie.put('PHPSESSID', this.coki.PHPSESSID);
+        this.cookie.set('PHPSESSID', this.coki.PHPSESSID);
       },
       async () => {
         await this.helper.toast('Falha', 'Erro na conexão entre API e Servidor', 'danger', 'bottom', 3000);
@@ -48,7 +48,7 @@ export class TcmedCookieService {
   }
 
   deleteCookies() {
-    this.cookie.remove('PHPSESSID');
+    this.cookie.delete('PHPSESSID');
   }
 
 }

@@ -15,11 +15,7 @@
 
 <ion-content>
   <div class="dataFrame">
-    <ion-row>
-      <ion-col class='colTopHeader'>
-          <h2>Dados Preenchidos</h2>
-      </ion-col>
-    </ion-row>
+    <p class='colTopHeader'>Dados Preenchidos</p>
     <ion-row>
       <ion-col size="6"  class='colHeader'>
         Salário Mensal
@@ -141,11 +137,7 @@
   </div>
 
   <div class="dataFrame">
-    <ion-row>
-      <ion-col class='colTopHeader'>
-        <h2>Calculos</h2>
-      </ion-col>
-    </ion-row>
+    <p class='colTopHeader'>Calculos</p>
     <ion-row>
       <ion-col size="6"  class='colHeader'>
         Total Imovel
@@ -164,7 +156,15 @@
     </ion-row>
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Juros no periodo
+        ITBI/Escr. + Aval. G.
+      </ion-col>
+      <ion-col class='colContent'>
+        {{ finanPrice.itbi_escritura_val + finanPrice.avaliacao_garantia_val| currency:'BRL': 'R$'}}
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col size="6"  class='colHeader'>
+        Soma dos Juros
       </ion-col>
       <ion-col class='colContent'>
         {{ finanPrice.total_juros_somados_val | currency:'BRL': 'R$'}}
@@ -172,7 +172,7 @@
     </ion-row> 
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Total Taxas
+        Soma das Taxas
       </ion-col>
       <ion-col class='colContent'>
         {{ finanPrice.total_taxas_somados_val | currency:'BRL': 'R$'}}
@@ -180,7 +180,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Total Juros + Taxas
+        Soma Juros + Taxas
       </ion-col>
       <ion-col class='colContent'>
         {{ finanPrice.total_perdas_somados_val | currency:'BRL': 'R$'}}
@@ -188,7 +188,7 @@
     </ion-row> 
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        Prestações Somadas
+        Soma das Prestações
       </ion-col>
       <ion-col class='colContent'>
         {{ finanPrice.total_imovel_parcelado_val | currency:'BRL': 'R$'}}
@@ -196,12 +196,10 @@
     </ion-row>  
     <ion-row>
       <ion-col size="6"  class='colHeader'>
-        TOTAL PREVISTO
+        Total Pago no Período
       </ion-col>
       <ion-col class='colContent'>
-        {{ (finanPrice.itbi_escritura_val ) <= 0 ? (finanPrice.total_imovel_val * 0.05) +
-          finanPrice.total_imovel_parcelado_val + finanPrice.entrada_val :
-          finanPrice.total_imovel_parcelado_val + finanPrice.entrada_val| currency:'BRL': 'R$'}}
+        {{ finanPrice.total_imovel_parcelado_val + finanPrice.entrada_val + finanPrice.itbi_escritura_val + finanPrice.avaliacao_garantia_val| currency:'BRL': 'R$'}}
       </ion-col>    
     </ion-row> 
 

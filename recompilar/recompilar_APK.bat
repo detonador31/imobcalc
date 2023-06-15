@@ -14,6 +14,8 @@ CALL cap_add_android.bat
 cd\projetos\finan-app\recompilar\scripts
 CALL cap_copy.bat
 cd\projetos\finan-app\recompilar\scripts
+CALL copy_android_files.bat
+cd\projetos\finan-app\recompilar\scripts
 CALL capacitor-resources.bat
 cd\projetos\finan-app\recompilar\scripts
 CALL capacitor-resources.bat

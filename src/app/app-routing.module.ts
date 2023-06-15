@@ -103,6 +103,10 @@ const routes: Routes = [
   {
     path: 'price-list',
     loadChildren: () => import('./pages/finan-imovel-price/price-list/price-list.module').then( m => m.PriceListPageModule)
+  },
+  {
+    path: 'uf-taxas',
+    loadChildren: () => import('./pages/uf-taxas/uf-taxas.module').then( m => m.UfTaxasPageModule)
   }
 ];
 

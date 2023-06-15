@@ -5,7 +5,6 @@ import { ModalController, NavController } from '@ionic/angular';
 import { EntBancoTaxasService } from 'src/app/services/entity/ent-banco_taxas';
 import { BancoTaxas } from 'src/app/classes/banco_taxas';
 import { HelperService } from 'src/app/services/outros/helper.service';
-import { isString, isUndefined } from 'util';
 import { BancoTaxasFormComponent } from 'src/app/component/banco-taxas-form/banco-taxas-form.component';
 import { Router } from '@angular/router';
 
@@ -52,6 +51,7 @@ export class BancoTaxasPage implements OnInit {
           } 
         },
       ); 
+      this.bancoTaxas = await this.entBancoTaxas.getAll();
     }
 
     // Gera um Json Apartir de um array de taxas bancarias
@@ -69,7 +69,7 @@ export class BancoTaxasPage implements OnInit {
   }
 
   async stringToNumber(field: string) {
-    if ( !isUndefined(this.bancoTaxa[field]) && this.bancoTaxa[field] && isString(this.bancoTaxa[field])) {
+    if ( this.bancoTaxa[field] !== undefined && this.bancoTaxa[field] && typeof this.bancoTaxa[field] === 'string') {
       this.bancoTaxa[field] = this.helper.formataFloat(this.bancoTaxa[field]);
     }
   } 
@@ -88,7 +88,7 @@ export class BancoTaxasPage implements OnInit {
    * @version 1.0
    * @param bItemId number
    */
-  async openFormModal(bancoTaxa: BancoTaxas) {
+  async openFormModal(bancoTaxa: BancoTaxas = null) {
     const banco = Object.assign({}, bancoTaxa);
     const modal = await this.modalCtrl.create({
       component: BancoTaxasFormComponent,
