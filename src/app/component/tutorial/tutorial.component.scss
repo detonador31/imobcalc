@@ -1,0 +1,68 @@
+ion-slides {
+    height: 100%; // O slide ocupa toda a altura disponível
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  
+    ion-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; // Alinha tudo ao topo
+      height: 100%; // Certifica que o slide usa toda a tela
+  
+      .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        height: 100%; // O conteúdo usa toda a altura disponível
+  
+        h2 {
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+  
+        p {
+          font-size: 16px;
+          color: #666;
+          margin-bottom: 20px;
+          padding: 0 10px;
+        }
+  
+        img {
+          height: 65%; // A imagem ocupa 60% da altura do slide
+          width: auto; // Mantém a proporção
+          max-width: 100%; // Impede que a largura ultrapasse o contêiner
+          margin-top: 10px;
+          margin-bottom: 1em; // Espaçamento inferior para evitar que o botão fique colado          
+          object-fit: contain; // Ajusta o conteúdo dentro do espaço
+
+        }
+  
+        ion-button {
+            width: 70%; // Define a largura do botão
+            margin-bottom: 2em; // Espaçamento inferior para evitar que o botão fique colado
+          }
+      }
+
+      .swiper-pagination {
+        position: absolute; /* Garante que esteja no local correto */
+        bottom: 20px; /* Ajusta a posição para não sobrepor o conteúdo */
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        --bullet-background: #ccc; /* Cor padrão dos pontos */
+        --bullet-background-active: #007aff; /* Cor do ponto ativo */
+        --bullet-size: 12px; /* Tamanho dos pontos */
+        --bullet-margin: 8px; /* Espaçamento entre os pontos */
+      }
+
+    }
+  }
+
+
+  

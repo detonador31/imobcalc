@@ -5,6 +5,8 @@ import { ToastController } from '@ionic/angular';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { hold } from 'src/environments/environment';
+import { StatusBar } from '@capacitor/status-bar';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,8 @@ export class HelperService {
   holdTcmed: number = hold.tcmed;
 
   constructor(
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private platform: Platform
   ) { }
 
   httpOptions = {
@@ -27,6 +30,22 @@ export class HelperService {
      }),
     withCredentials: true
   };
+
+
+  async setColors(statusBarColor: string, navigationBarColor?: string) {
+    if (this.platform.is('capacitor')) {
+      // Alterar a cor da Status Bar
+      await StatusBar.setBackgroundColor({ color: statusBarColor });
+
+      // Alterar a cor da Navigation Bar (se necessário)
+      if (navigationBarColor) {
+        const win = window as any;
+        if (win.AndroidNavigationBar) {
+          win.AndroidNavigationBar.setColor(navigationBarColor); // Comunicação com o Android manual
+        }
+      }
+    }
+  }
 
   /**
    * Manipula erros da API

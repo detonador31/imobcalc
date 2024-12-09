@@ -1,0 +1,51 @@
+<ion-content>
+  <ion-slides pager="true" [options]="slideOpts" (ionSlideDidChange)="checkLastSlide()" (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <div class="content">   
+        <h2>Bem-vindo ao Calc Imob!</h2>
+        <p>Aqui é onde tudo começa, escolha entre Imobiliário Sac ou Imobiliário Prime</p>
+        <img src="assets/img/tutorial1.jpg" alt="Step 1">
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="content">
+        <h2>Cálculo Imobiliário Sac</h2>
+        <p>Aqui você só preenche os campos em branco, e o resto é por nossa conta</p>
+        <img src="assets/img/tutorial2.jpg" alt="Step 2">
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="content">  
+        <h2>Cálculo Imobiliário Prime</h2>
+        <p>Aqui os campos são a mesma coisa do Cálculo Imobiliário Sac, mas o cálculo será pelo sistema prime</p>
+        <img src="assets/img/tutorial3.jpg" alt="Step 3">
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="content">  
+        <h2>Salve seus calculos e Gere PDF</h2>
+        <p>Você pode salvar seus cálculos, consultar e até mesmo gerar PDF detalhado de todas as prestações do seu finaciamento ou do seu cliente</p>
+        <img src="assets/img/tutorial3.jpg" alt="Step 5">
+      </div>
+    </ion-slide>        
+
+    <ion-slide>
+      <div class="content">  
+        <h2>Insira outros bancos, Taxa de Juros anual, taxas de ITBI e escritura e taxas mensais diversas</h2>
+        <p>Nós cuidamos de atualizar as taxas bancárias. Mas se você adicionar outros bancos, faça-o conforme suas necessidades</p>
+        <img src="assets/img/tutorial3.jpg" alt="Step 4">
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="content">        
+        <h2>Estamos prontos!</h2>
+        <p>Agora você pode usar o aplicativo ao máximo! </p>
+        <p>Lembrando que não garantimos 100% de precisão se comparado com os parâmetros do banco oficial, mas é uma ótima ferramenta para obter os valores de calculos mais próximo da realidade de uma instituição bancaria</p>
+        <img src="assets/img/tutorial4.jpg" alt="Step 6">
+        <ion-button expand="full" (click)="finishTutorial()">Começar</ion-button>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

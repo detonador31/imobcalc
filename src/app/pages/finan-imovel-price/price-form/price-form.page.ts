@@ -27,7 +27,7 @@ export class PriceFormPage implements OnInit {
     private loadingCtrl: LoadingController,
     private taxasParcelas: ParcelasTaxasService,
     private platform: Platform,
-    private navCtr: NavController,     
+    private navCtr: NavController
   ) {
     this.platform.backButton.subscribeWithPriority(10000, () => {
       this.backPage();
@@ -42,6 +42,7 @@ export class PriceFormPage implements OnInit {
 
     this.bancoTaxas = await this.entBancoTaxas.getByType('imobiliario_price');
     this.loading.dismiss();
+    this.helper.setColors( 'tertiary', 'tertiary'); // Exemplo de cores para status e navigation bar      
     // this.ufs = this.jsonsService.uf;
   }    
 

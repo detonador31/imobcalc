@@ -56,7 +56,8 @@ export class FinanImovelCalcPage implements OnInit {
     console.log('Entrada', this.finan.entrada_val);
     console.log('Itbi + Escritura', this.finan.itbi_escritura_val);
     console.log('Total Parcelado', this.finan.total_imovel_parcelado_val); */
-    console.log(this.finan);
+    // console.log(this.finan);
+    this.helper.setColors( 'secondary', 'secondary'); // Exemplo de cores para status e navigation bar     
 
     this.loading.dismiss();
     

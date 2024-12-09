@@ -10,6 +10,7 @@ import { Plugins, PluginListenerHandle } from '@capacitor/core';
 import { ImovelPriceComponent } from '../component/imovel-price/imovel-price.component';
 import { Network } from '@capacitor/network';
 import { AdmobService } from '../services/outros/admob.service';
+import { TutorialComponent } from '../component/tutorial/tutorial.component';
 
 const { Network2 } = Plugins;
 
@@ -41,7 +42,7 @@ export class HomePage implements OnInit, OnDestroy {
     private helper: HelperService,
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
-    public admobService: AdmobService     
+    public admobService: AdmobService,
   ) {
     this.statusClass = null;
   }
@@ -57,6 +58,8 @@ export class HomePage implements OnInit, OnDestroy {
 
     this.getNetworkStatus();
     this.deleteCookies();
+    this.helper.setColors( '#0000FF', '#0000FF'); // Exemplo de cores para status e navigation bar    
+    this.openTutorialModal();
   }
 
   ionViewWillLeave(){
@@ -158,5 +161,27 @@ export class HomePage implements OnInit, OnDestroy {
     await modal.present();
     const data = await modal.onWillDismiss();
   }   
+
+  /**
+   * Abre o Modal de Tutorial somente uma vez
+   * author Silvio Watakabe <silvio@tcmed.com.br>
+   * @since 08/12/2024
+   * @version 1.0
+   */
+  async openTutorialModal() {
+    this.loading = await this.loadingCtrl.create({message: 'Abrindo...'});
+    await this.loading.present();
+
+    const modal = await this.modalCtrl.create({
+      component: TutorialComponent,
+      backdropDismiss: false, // Evita que o usuário feche sem completar      
+      componentProps: {
+      },
+      //cssClass: 'transparent-modal'
+    });
+    this.loading.dismiss();
+    await modal.present();
+    const data = await modal.onWillDismiss();
+  }     
 
 }

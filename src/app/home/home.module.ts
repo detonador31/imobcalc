@@ -1,5 +1,6 @@
 import { ImovelPriceComponent } from './../component/imovel-price/imovel-price.component';
 import { ImovelSacComponent } from './../component/imovel-sac/imovel-sac.component';
+import { TutorialComponent } from '../component/tutorial/tutorial.component';
 import { MenuComponent } from './../component/menu/menu.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,7 +19,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     HomePageRoutingModule
   ],
   declarations: [HomePage,
-  MenuComponent, ImovelSacComponent, ImovelPriceComponent],
-  entryComponents: [ImovelSacComponent, ImovelPriceComponent]
+  MenuComponent, ImovelSacComponent, ImovelPriceComponent, TutorialComponent],
+  entryComponents: [ImovelSacComponent, ImovelPriceComponent, TutorialComponent]
 })
 export class HomePageModule {}

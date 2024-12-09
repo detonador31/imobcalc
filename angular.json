@@ -42,7 +42,9 @@
               },
               {
                 "input": "src/global.scss"
-              }
+              },
+              "src/styles.scss",
+              "node_modules/swiper/swiper-bundle.min.css"
             ],
             "scripts": []
           },
