@@ -1,8 +1,105 @@
-# App de Cálculos de Financiamento Imobiliário
+# 🏠 imobcalc
 
-Este repositório contém o código-fonte de um aplicativo para cálculo de financiamentos imobiliários, com base nas tabelas **SAC** e **PRICE**.
+Aplicativo para cálculo de financiamentos imobiliários, utilizando as tabelas SAC e PRICE.
 
-## Funcionalidades do Aplicativo
+## 🧠 Visão Geral
+
+O **imobcalc** é uma aplicação desenvolvida para auxiliar no cálculo de financiamentos imobiliários, permitindo a simulação de parcelas e a análise de diferentes condições de pagamento.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Angular** - Framework para aplicações web
+- **Ionic 6** - Framework para desenvolvimento de aplicativos móveis
+- **TypeScript** - Superset do JavaScript
+- **Capacitor** - Ferramenta para construção de aplicativos nativos
+- **Karma** - Ferramenta de testes para JavaScript
+
+---
+
+## ✅ Requisitos
+
+- [Node.js](https://nodejs.org/) (versão 14 ou superior)
+- [npm](https://www.npmjs.com/)
+- [Ionic CLI](https://ionicframework.com/docs/cli) instalado globalmente
+- [Android Studio](https://developer.android.com/studio) com SDKs e emuladores configurados
+- Dispositivo Android com **Depuração USB** ativada (para testes em hardware)
+
+---
+
+## 🚀 Instalação e Teste
+
+1. Clone o repositório:
+
+  ```bash
+  git clone https://github.com/detonador31/imobcalc.git
+  ```
+   
+2. Acesse o diretório do projeto:
+  ```bash
+  cd imobcalc
+  ```
+
+3. Instale as dependências:
+  ```bash
+  npm install
+  ```
+4. Adicione a plataforma Android:
+  ```bash
+  ionic capacitor add android
+   ```
+
+5. Sincronize as alterações:
+  ```bash
+  ionic capacitor sync
+   ```
+
+6. Execute a aplicação no navegador:
+  ```bash
+  ionic serve
+   ```
+
+---
+
+## 📱 Executando no Android
+
+🔌 **Dispositivo Físico**
+
+1. Conecte seu dispositivo Android ao computador via USB.
+
+2. Ative a Depuração USB nas opções de desenvolvedor do dispositivo.
+
+3. Execute o aplicativo no dispositivo:
+  ```bash
+  ionic capacitor run android
+   ```
+
+📱 **Emulador Android**
+
+1. Abra o Android Studio e configure um emulador (AVD).
+
+2. Execute o aplicativo no emulador:
+  ```bash
+  ionic capacitor run android --target=<nome_do_emulador>
+   ```
+
+  Substitua <nome_do_emulador> pelo nome do seu emulador. Você pode listar os emuladores disponíveis com:
+  ```bash
+  ionic capacitor run android --list
+   ```
+
+🔄 **Live Reload (Opcional)**
+
+Para habilitar o live reload durante o desenvolvimento:
+  ```bash
+  ionic capacitor run android -l --external
+  ```
+Certifique-se de que o dispositivo ou emulador esteja na mesma rede que o computador.
+
+---
+
+## ⚙️ Funcionalidades
 
 - **Cadastro de Informações Bancárias:**
   - Taxas bancárias
@@ -25,16 +122,23 @@ Este repositório contém o código-fonte de um aplicativo para cálculo de fina
   - Total das taxas cobradas
   - Valor discriminado de cada parcela (incluindo taxas e amortização)
 
-## Tecnologias Utilizadas
+- **Cálculo de parcelas utilizando as tabelas SAC e PRICE**
 
-- **Frameworks e Bibliotecas:**
-  - Ionic
-  - Angular
-  - SQLite
-  - Capacitor
-- **Ambiente de Desenvolvimento:**
-  - Android Studio
-  - Visual Studio Code
+- **Simulação de diferentes condições de financiamento**
 
 ---
-_Aplicativo ideal para simulações de financiamentos e avaliações detalhadas. Aproveite para personalizar conforme as necessidades do seu projeto._
+
+## 📄 Licença
+Este projeto está licenciado sob a MIT License.
+
+---
+
+## 🤝 Contribuição
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
+
+---
+
+## 📞 Contato
+
+- GitHub: @detonador31
+- Email: swat2014@outlook.com
