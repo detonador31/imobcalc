@@ -1,6 +1,6 @@
 # 🏠 imobcalc
 
-Aplicativo para cálculo de financiamentos imobiliários, utilizando as tabelas SAC e PRICE.
+APP Android para cálculo de financiamentos imobiliários, utilizando as tabelas SAC e PRICE. Baseado em IONIC 6 com Angular, usa capacitor 3.0 para adicionar módulos que fazem conexão com o hardware do smartphone, garantindo diversas funcionalidades e interações com o usuário final.
 
 ## 🧠 Visão Geral
 
